@@ -1,0 +1,33 @@
+body{
+    --spacing: 50px;
+}
+
+h1{
+    font-size: 2.125em;
+}
+h2{
+    font-size: 1.875em;
+}
+h3{
+    font-size: 1.625em;
+}
+p{
+    font-size: 1.125em;
+}
+
+#tabel{
+    overflow-x: hidden;
+    width: 100%;
+}
+
+main{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+    "z-prezentare z-prezentare z-prezentare z-prezentare"
+    "z-online z-statistici z-statistici z-server"
+    "z-calendar z-calendar z-tabel z-tabel"
+    "z-anunt z-anunt z-tabel z-tabel"
+    "z-diverse z-diverse z-diverse z-diverse";
+    gap: 20px;
+}

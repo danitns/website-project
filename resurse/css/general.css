@@ -1,0 +1,354 @@
+html{
+    font-size: 16px;
+    text-align: justify-all;
+    font-family: Georgia, serif;
+}
+
+/*img{*/
+/*    width: 100%;*/
+/*}*/
+
+h1, h2, h3, h4, h5{
+    text-align: center;
+}
+
+h3{
+    color: var(--red);
+}
+
+p{
+    font-family: Verdana, sans-serif;
+}
+
+/*Mi-am dorit sa creez un site simplu, bazat pe non-culori - alb, negru, gri - si accente de rosu. In psihologie, culoarea rosie provoaca sentimente puternice de entuziasm, iubire, energie. In contextul site-ului meu, rosul ne poate duce cu gandul la o masina puternica, fiind o culoare tipica firmei Ferrari sau Formula 1. */
+
+body{
+    --light-gray:rgb(176, 176, 176);
+    --dark-gray:rgb(45, 45, 45);
+    --white:rgb(255, 255, 255);
+    --black:rgb(0, 0, 0);
+    --red:rgb(206, 0, 0);
+
+    background-color: var(--white);
+    color: var(--black);
+
+    /*padding-left: ;*/
+    /*padding-right: ;*/
+}
+
+header{
+    background-color: var(--white);
+    color: var(--red);
+}
+
+footer{
+    background-color: var(--black);
+    color: var(--light-gray);
+    padding: 1%;
+}
+
+footer a:link, footer a:visited{
+    color: var(--light-gray);
+}
+
+footer a:hover, footer a:active{
+    color: var(--white);
+}
+
+footer iframe{
+    padding: 1%;
+}
+
+/*main{*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr 1fr 1fr 1fr;*/
+/*    grid-template-areas:*/
+/*    "z-prezentare z-prezentare z-prezentare z-prezentare"*/
+/*    "z-online z-statistici z-statistici z-server"*/
+/*    "z-calendar z-calendar z-tabel z-tabel"*/
+/*    "z-anunt z-anunt z-tabel z-tabel"*/
+/*    "z-diverse z-diverse z-diverse z-diverse"*/
+/*}*/
+
+main{
+    padding-left: var(--spacing);
+    padding-right: var(--spacing);
+}
+
+main > *{
+    border: 0.18em solid var(--dark-gray);
+}
+
+main section{
+    padding: 10px;
+}
+
+
+
+#diverse > section{
+    border: 0.18em solid var(--light-gray);
+}
+
+#link-top{
+    position: fixed;
+    bottom: 1%;
+    left: 90%;
+    font-size: 2.8em;
+    border: 5px solid var(--dark-gray);
+    background-color: var(--red);
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: opacity 300ms;
+    box-shadow: 10px 10px 10px var(--dark-gray);
+    width: 80px;
+    height: 80px;
+    line-height: 50px;
+}
+
+#link-top:hover, #link-top:active{
+    opacity: 1;
+}
+
+#link-top a:link, #link-top a:visited{
+    color: var(--white);
+}
+
+#link-top a:hover, #link-top a:active{
+    color: var(--black);
+}
+
+
+
+#nav-bar a:link, #nav-bar a:visited{
+    background-color: var(--white);
+    color: var(--black);
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#nav-bar a:hover, #nav-bar a:active{
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-container a:link, .flex-container a:visited{
+    background-color: var(--red);
+    color: var(--white);
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0 0 30px 30px;
+    margin-left: 10px;
+}
+
+.flex-container a:hover, .flex-container a:active{
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.flex-iframe{
+    order: 1;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+}
+
+.flex-iframe iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 95%;
+    height: 91%;
+    padding: 2.5%;
+    background-color: var(--red);
+}
+
+.flex-links{
+    order: 2;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#tabel {
+    width: 100%;
+    height: 70%;
+}
+
+#tabel th, #tabel td, #tabel{
+    border: 1px solid var(--black);
+    border-collapse: collapse;
+    text-align: center;
+    vertical-align: center;
+}
+
+#tabel th{
+    height: 1vw;
+    background-color: var(--dark-gray);
+    color: var(--white);
+}
+
+#tabel tr:nth-child(even){
+    background-color: var(--light-gray);
+}
+
+#tabel tr{
+    transition: background-color 300ms, color 300ms;
+}
+
+#tabel tr:hover{
+    background-color: var(--dark-gray);
+    color: var(--white);
+}
+
+#tabel caption{
+    padding: 20px;
+    font-size: 1.5625em;
+    font-weight: bold;
+    font-family: Georgia, serif;
+}
+
+
+/*@media only screen and (max-width: 600px){*/
+/*    h1{*/
+/*        font-size: 1.875em;*/
+/*    }*/
+/*    h2{*/
+/*        font-size: 1.625em;*/
+/*    }*/
+/*    h3{*/
+/*        font-size: 1.375em;*/
+/*    }*/
+/*    p{*/
+/*        font-size: 1em;*/
+/*    }*/
+
+/*    #tabel{*/
+/*        display:block;*/
+/*        overflow-x: auto;*/
+/*        white-space: nowrap;*/
+/*    }*/
+
+/*    main{*/
+/*        display: block;*/
+/*        !*grid-template-columns: 1fr 1fr 1fr 1fr;*!*/
+/*        !*grid-template-areas:*!*/
+/*        !*"z-prezentare z-prezentare z-prezentare z-prezentare"*!*/
+/*        !*"z-online z-online z-online z-online"*!*/
+/*        !*"z-statistici z-statistici z-statistici z-statistici"*!*/
+/*        !*"z-server z-server z-server z-server"*!*/
+/*        !*"z-tabel z-tabel z-tabel z-tabel"*!*/
+/*        !*"z-calendar z-calendar z-calendar z-calendar"*!*/
+/*        !*"z-anunt z-anunt z-anunt z-anunt"*!*/
+/*        !*"z-diverse z-diverse z-diverse z-diverse"*!*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (max-width: 1000px){*/
+/*    h1{*/
+/*        font-size: 2em;*/
+/*    }*/
+/*    h2{*/
+/*        font-size: 1.75em;*/
+/*    }*/
+/*    h3{*/
+/*        font-size: 1.5em;*/
+/*    }*/
+/*    p{*/
+/*        font-size: 1.6025em;*/
+/*    }*/
+
+/*    #tabel{*/
+/*        display:block;*/
+/*        overflow-x: auto;*/
+/*        white-space: nowrap;*/
+/*    }*/
+
+/*    main{*/
+/*        display: block;*/
+/*        !*grid-template-columns: 1fr 1fr 1fr 1fr;*!*/
+/*        !*grid-template-areas:*!*/
+/*        !*"z-prezentare z-prezentare z-prezentare z-prezentare"*!*/
+/*        !*"z-online z-statistici z-statistici z-server"*!*/
+/*        !*"z-calendar z-calendar z-tabel z-tabel"*!*/
+/*        !*"z-anunt z-anunt z-tabel z-tabel"*!*/
+/*        !*"z-diverse z-diverse z-diverse z-diverse"*!*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (min-width: 1001px){*/
+/*    h1{*/
+/*        font-size: 2.125em;*/
+/*    }*/
+/*    h2{*/
+/*        font-size: 1.875em;*/
+/*    }*/
+/*    h3{*/
+/*        font-size: 1.625em;*/
+/*    }*/
+/*    p{*/
+/*        font-size: 1.125em;*/
+/*    }*/
+
+/*    #tabel{*/
+/*        overflow-x: hidden;*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    main{*/
+/*        display: grid;*/
+/*        grid-template-columns: repeat(4, 1fr);*/
+/*        grid-template-areas:*/
+/*    "z-prezentare z-prezentare z-prezentare z-prezentare"*/
+/*    "z-online z-statistici z-statistici z-server"*/
+/*    "z-calendar z-calendar z-tabel z-tabel"*/
+/*    "z-anunt z-anunt z-tabel z-tabel"*/
+/*    "z-diverse z-diverse z-diverse z-diverse";*/
+/*        gap: 20px;*/
+/*    }*/
+
+/*}*/
+
+#despre-noi{
+    grid-area: z-prezentare;
+}
+
+#s-tabel{
+    grid-area: z-tabel;
+}
+
+#calendar{
+    grid-area: z-calendar;
+}
+
+#anunt {
+    grid-area: z-anunt;
+}
+
+#online{
+    grid-area: z-online;
+}
+
+#statistici{
+    grid-area: z-statistici;
+}
+
+#server{
+    grid-area: z-server;
+}
+
+#diverse{
+    grid-area:z-diverse;
+}
+
+
+

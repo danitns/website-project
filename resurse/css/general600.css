@@ -1,0 +1,26 @@
+body{
+    --spacing: 30px;
+}
+
+h1{
+    font-size: 1.875em;
+}
+h2{
+    font-size: 1.625em;
+}
+h3{
+    font-size: 1.375em;
+}
+p{
+    font-size: 1em;
+}
+
+#tabel{
+    display:block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+main{
+    display: block;
+}

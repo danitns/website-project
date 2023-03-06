@@ -1,0 +1,15 @@
+#hamburger, #ch-menu{
+    display:none;
+}
+
+body{
+    --menu-height: 25px;
+    --menu-width: 150px;
+}
+
+/*#nav_bar li{*/
+/*    width: var(--menu-width);*/
+/*    height: var(--menu-height);*/
+/*    background-color: var(--black);*/
+/*    overflow: hidden;*/
+/*}*/
