@@ -1,12 +1,8 @@
 html{
     font-size: 16px;
     text-align: justify-all;
-    font-family: Georgia, serif;
+    font-family: 'Montserrat', serif;
 }
-
-/*img{*/
-/*    width: 100%;*/
-/*}*/
 
 h1, h2, h3, h4, h5{
     text-align: center;
@@ -14,10 +10,6 @@ h1, h2, h3, h4, h5{
 
 h3{
     color: var(--red);
-}
-
-p{
-    font-family: Verdana, sans-serif;
 }
 
 /*Mi-am dorit sa creez un site simplu, bazat pe non-culori - alb, negru, gri - si accente de rosu. In psihologie, culoarea rosie provoaca sentimente puternice de entuziasm, iubire, energie. In contextul site-ului meu, rosul ne poate duce cu gandul la o masina puternica, fiind o culoare tipica firmei Ferrari sau Formula 1. */
@@ -59,23 +51,12 @@ footer iframe{
     padding: 1%;
 }
 
-/*main{*/
-/*    display: grid;*/
-/*    grid-template-columns: 1fr 1fr 1fr 1fr;*/
-/*    grid-template-areas:*/
-/*    "z-prezentare z-prezentare z-prezentare z-prezentare"*/
-/*    "z-online z-statistici z-statistici z-server"*/
-/*    "z-calendar z-calendar z-tabel z-tabel"*/
-/*    "z-anunt z-anunt z-tabel z-tabel"*/
-/*    "z-diverse z-diverse z-diverse z-diverse"*/
-/*}*/
-
 main{
     padding-left: var(--spacing);
     padding-right: var(--spacing);
 }
 
-main > *{
+#responsive-layout > * {
     border: 0.18em solid var(--dark-gray);
 }
 
@@ -115,22 +96,6 @@ main section{
 
 #link-top a:hover, #link-top a:active{
     color: var(--black);
-}
-
-
-
-#nav-bar a:link, #nav-bar a:visited{
-    background-color: var(--white);
-    color: var(--black);
-    padding: 14px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-
-#nav-bar a:hover, #nav-bar a:active{
-    background-color: var(--red);
-    color: var(--white);
 }
 
 .flex-container {
@@ -201,6 +166,10 @@ main section{
     background-color: var(--light-gray);
 }
 
+#tabel tr:nth-child(odd){
+    background-color: var(--white);
+}
+
 #tabel tr{
     transition: background-color 300ms, color 300ms;
 }
@@ -214,109 +183,9 @@ main section{
     padding: 20px;
     font-size: 1.5625em;
     font-weight: bold;
-    font-family: Georgia, serif;
+    font-family: 'Montserrat', serif;
 }
 
-
-/*@media only screen and (max-width: 600px){*/
-/*    h1{*/
-/*        font-size: 1.875em;*/
-/*    }*/
-/*    h2{*/
-/*        font-size: 1.625em;*/
-/*    }*/
-/*    h3{*/
-/*        font-size: 1.375em;*/
-/*    }*/
-/*    p{*/
-/*        font-size: 1em;*/
-/*    }*/
-
-/*    #tabel{*/
-/*        display:block;*/
-/*        overflow-x: auto;*/
-/*        white-space: nowrap;*/
-/*    }*/
-
-/*    main{*/
-/*        display: block;*/
-/*        !*grid-template-columns: 1fr 1fr 1fr 1fr;*!*/
-/*        !*grid-template-areas:*!*/
-/*        !*"z-prezentare z-prezentare z-prezentare z-prezentare"*!*/
-/*        !*"z-online z-online z-online z-online"*!*/
-/*        !*"z-statistici z-statistici z-statistici z-statistici"*!*/
-/*        !*"z-server z-server z-server z-server"*!*/
-/*        !*"z-tabel z-tabel z-tabel z-tabel"*!*/
-/*        !*"z-calendar z-calendar z-calendar z-calendar"*!*/
-/*        !*"z-anunt z-anunt z-anunt z-anunt"*!*/
-/*        !*"z-diverse z-diverse z-diverse z-diverse"*!*/
-/*    }*/
-/*}*/
-
-/*@media only screen and (max-width: 1000px){*/
-/*    h1{*/
-/*        font-size: 2em;*/
-/*    }*/
-/*    h2{*/
-/*        font-size: 1.75em;*/
-/*    }*/
-/*    h3{*/
-/*        font-size: 1.5em;*/
-/*    }*/
-/*    p{*/
-/*        font-size: 1.6025em;*/
-/*    }*/
-
-/*    #tabel{*/
-/*        display:block;*/
-/*        overflow-x: auto;*/
-/*        white-space: nowrap;*/
-/*    }*/
-
-/*    main{*/
-/*        display: block;*/
-/*        !*grid-template-columns: 1fr 1fr 1fr 1fr;*!*/
-/*        !*grid-template-areas:*!*/
-/*        !*"z-prezentare z-prezentare z-prezentare z-prezentare"*!*/
-/*        !*"z-online z-statistici z-statistici z-server"*!*/
-/*        !*"z-calendar z-calendar z-tabel z-tabel"*!*/
-/*        !*"z-anunt z-anunt z-tabel z-tabel"*!*/
-/*        !*"z-diverse z-diverse z-diverse z-diverse"*!*/
-/*    }*/
-/*}*/
-
-/*@media only screen and (min-width: 1001px){*/
-/*    h1{*/
-/*        font-size: 2.125em;*/
-/*    }*/
-/*    h2{*/
-/*        font-size: 1.875em;*/
-/*    }*/
-/*    h3{*/
-/*        font-size: 1.625em;*/
-/*    }*/
-/*    p{*/
-/*        font-size: 1.125em;*/
-/*    }*/
-
-/*    #tabel{*/
-/*        overflow-x: hidden;*/
-/*        width: 100%;*/
-/*    }*/
-
-/*    main{*/
-/*        display: grid;*/
-/*        grid-template-columns: repeat(4, 1fr);*/
-/*        grid-template-areas:*/
-/*    "z-prezentare z-prezentare z-prezentare z-prezentare"*/
-/*    "z-online z-statistici z-statistici z-server"*/
-/*    "z-calendar z-calendar z-tabel z-tabel"*/
-/*    "z-anunt z-anunt z-tabel z-tabel"*/
-/*    "z-diverse z-diverse z-diverse z-diverse";*/
-/*        gap: 20px;*/
-/*    }*/
-
-/*}*/
 
 #despre-noi{
     grid-area: z-prezentare;

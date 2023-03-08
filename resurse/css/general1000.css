@@ -3,31 +3,35 @@ body{
 }
 
 h1{
-    font-size: 2em;
+    font-size: 2rem;
 }
 h2{
-    font-size: 1.75em;
+    font-size: 1.75rem;
 }
 h3{
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }
 p{
-    font-size: 1.6025em;
+    font-size: 1.6025rem;
 }
 
 #tabel{
     display:block;
     overflow-x: auto;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
+    height: 100%;
+    width: 100%;
 }
 
-main{
-    display: block;
-    /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
-    /*grid-template-areas:*/
-    /*"z-prezentare z-prezentare z-prezentare z-prezentare"*/
-    /*"z-online z-statistici z-statistici z-server"*/
-    /*"z-calendar z-calendar z-tabel z-tabel"*/
-    /*"z-anunt z-anunt z-tabel z-tabel"*/
-    /*"z-diverse z-diverse z-diverse z-diverse"*/
+#responsive-layout{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "z-prezentare z-prezentare"
+    "z-online z-server"
+    "z-statistici z-statistici"
+    "z-calendar z-calendar"
+    "z-tabel z-tabel"
+    "z-anunt z-anunt"
+    "z-diverse z-diverse";
 }

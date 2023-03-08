@@ -3,16 +3,16 @@ body{
 }
 
 h1{
-    font-size: 2.125em;
+    font-size: 2.125rem;
 }
 h2{
-    font-size: 1.875em;
+    font-size: 1.875rem;
 }
 h3{
-    font-size: 1.625em;
+    font-size: 1.625rem;
 }
 p{
-    font-size: 1.125em;
+    font-size: 1.125rem;
 }
 
 #tabel{
@@ -20,7 +20,7 @@ p{
     width: 100%;
 }
 
-main{
+#responsive-layout{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
