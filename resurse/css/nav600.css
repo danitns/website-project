@@ -17,8 +17,8 @@ body{
 
 ul.nav-bar{
     display: block;
-    transform-origin: top;
-    transform: scale(1, 0);
+    transform-origin: left;
+    transform: scale(0, 1);
     transition: all 500ms linear;
 }
 
