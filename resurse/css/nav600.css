@@ -1,0 +1,29 @@
+body{
+    --menu-height: 40px;
+    --button-width: 100%;
+}
+
+#hamburger{
+    display: block;
+    margin: 0;
+}
+
+#hamburger i{
+    color: var(--white);
+    line-height: 100%;
+    display: block;
+    padding: 4px;
+}
+
+ul.nav-bar{
+    display: block;
+    transform-origin: top;
+    transform: scale(1, 0);
+    transition: all 500ms linear;
+}
+
+#ch-menu:checked + ul.nav-bar{
+    display: block;
+    transform: scale(1, 1);
+}
+

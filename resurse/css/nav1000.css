@@ -1,0 +1,12 @@
+body{
+    --menu-height: 45px;
+    --button-width: 140px;
+}
+
+#home{
+    display: none;
+}
+
+#home-medium{
+    display: block;
+}

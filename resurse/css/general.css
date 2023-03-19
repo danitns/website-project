@@ -6,13 +6,16 @@ html{
 
 h1, h2, h3, h4, h5{
     text-align: center;
+    margin: 20px;
+}
+
+h1{
+    font-weight: bold;
 }
 
 h3{
     color: var(--red);
 }
-
-/*Mi-am dorit sa creez un site simplu, bazat pe non-culori - alb, negru, gri - si accente de rosu. In psihologie, culoarea rosie provoaca sentimente puternice de entuziasm, iubire, energie. In contextul site-ului meu, rosul ne poate duce cu gandul la o masina puternica, fiind o culoare tipica firmei Ferrari sau Formula 1. */
 
 body{
     --light-gray:rgb(176, 176, 176);
@@ -23,9 +26,6 @@ body{
 
     background-color: var(--white);
     color: var(--black);
-
-    /*padding-left: ;*/
-    /*padding-right: ;*/
 }
 
 header{
@@ -52,24 +52,30 @@ footer iframe{
 }
 
 main{
-    padding-left: var(--spacing);
-    padding-right: var(--spacing);
+    padding: var(--spacing);
+}
+
+main img{
+    width: 100%;
+    height: auto;
+}
+
+main section p{
+    margin: 1vw;
+    text-justify: auto;
+    text-indent: 20px;
 }
 
 #responsive-layout > * {
     border: 0.18em solid var(--dark-gray);
 }
 
-main section{
-    padding: 10px;
-}
-
-
-
 #diverse > section{
     border: 0.18em solid var(--light-gray);
 }
 
+
+/*---LINK-TOP---*/
 #link-top{
     position: fixed;
     bottom: 1%;
@@ -97,7 +103,11 @@ main section{
 #link-top a:hover, #link-top a:active{
     color: var(--black);
 }
+/*---LINK-TOP---*/
 
+
+
+/*---IFRAME---*/
 .flex-container {
     display: flex;
     flex-direction: column;
@@ -132,9 +142,9 @@ main section{
     left: 0;
     bottom: 0;
     right: 0;
-    width: 95%;
-    height: 91%;
-    padding: 2.5%;
+    width: 90%;
+    height: 85%;
+    padding: 5%;
     background-color: var(--red);
 }
 
@@ -143,7 +153,11 @@ main section{
     display: flex;
     flex-direction: row-reverse;
 }
+/*---IFRAME---*/
 
+
+
+/*---TABEL---*/
 #tabel {
     width: 100%;
     height: 70%;
@@ -185,6 +199,8 @@ main section{
     font-weight: bold;
     font-family: 'Montserrat', serif;
 }
+/*---TABEL---*/
+
 
 
 #despre-noi{

@@ -18,12 +18,17 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
+    <link rel="stylesheet" href="resurse/css/reset.css">
     <link rel="stylesheet" href="resurse/css/general.css">
     <link rel="stylesheet" href="resurse/css/general1001.css" media="screen and (min-width: 1001px)">
     <link rel="stylesheet" href="resurse/css/general1000.css" media="screen and (max-width: 1000px)">
     <link rel="stylesheet" href="resurse/css/general600.css" media="screen and (max-width: 600px)">
 
     <link rel="stylesheet" href="resurse/css/nav.css">
+    <link rel="stylesheet" href="resurse/css/nav1000.css" media="screen and (max-width:1000px)">
+    <link rel="stylesheet" href="resurse/css/nav600.css" media="screen and (max-width:600px)">
+
+    <link rel="stylesheet" href="resurse/css/print.css">
 
     <script src="https://kit.fontawesome.com/e2734d1df9.js" crossorigin="anonymous"></script>
 
@@ -34,31 +39,34 @@
 
 
 <header>
+    <p id="banner"></p>
     <h1>AuctionRider</h1>
-
-    <nav>
-<!--        <label id="hamburger" for="ch-menu">-->
-<!--            <img src="resurse/imagini/ico/favicon-32x32.png" alt="menu">-->
-<!--        </label>-->
-<!--        <input id="ch-menu" type="checkbox">-->
-
-        <ul class="nav-bar">
-            <li>
-                <div><a href="#">Home</a></div>
-                <ul>
-                    <li><a href="#despre-noi">Despre noi</a></li>
-                    <li><a href="#motive">De ce să alegeți AuctionRider?</a></li>
-                    <li><a href="#popular">Anunțuri populare</a></li>
-                    <li><a href="#noutati">Noutăți din lumea auto</a></li>
-                    <li><a href="#faq">Întrebări frecvente</a></li>
-                </ul>
-            </li>
-            <li><a href="">Cauta autoturisme</a></li>
-            <li><a href="">Vinde</a></li>
-            <li><a href="">Contact</a></li>
-        </ul>
-    </nav>
 </header>
+
+<p id="watermark"></p>
+
+<nav>
+    <label id="hamburger" for="ch-menu">
+        <i class="fa-solid fa-bars fa-2xl"></i>
+    </label>
+    <input id="ch-menu" type="checkbox">
+
+    <ul class="nav-bar">
+        <li>
+            <div id="home"><a href="#">Home</a></div><div id="home-medium"><a href="#"><i class="fa-solid fa-house"></i></a></div>
+            <ul class="sub-nav-bar">
+                <li><a href="#despre-noi">Despre noi</a></li>
+                <li><a href="#motive">De ce noi?</a></li>
+                <li><a href="#popular">Anunțuri populare</a></li>
+                <li><a href="#noutati">Noutăți</a></li>
+                <li><a href="#faq">Întrebări frecvente</a></li>
+            </ul>
+        </li>
+        <li><a href="">Cauta autoturisme</a></li>
+        <li><a href="">Vinde</a></li>
+        <li><a href="">Contact</a></li>
+    </ul>
+</nav>
 
 <main>
     <div id="responsive-layout">
@@ -75,8 +83,9 @@
                     <img src="./resurse/imagini/ico/favicon-32x32.png" alt="carpicture">
                 </picture>
                 <figcaption>Masina</figcaption>
+                <a href="./resurse/imagini/car1920.jpg" download="car">Descarcă imaginea.</a>
             </figure>
-            <a href="./resurse/imagini/car1920.jpg" download="car">Descarcă imaginea.</a>
+
         </section>
 
         <section id="s-tabel">
@@ -325,12 +334,4 @@
 </button>
 
 </body>
-
-<!--
-Etapa 1
-6. am folosit section si article
-7. am folosit p, ol si ul
-9. am folosit b, i, strong
--->
-
 </html>

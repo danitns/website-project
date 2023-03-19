@@ -1,10 +1,10 @@
-/*#hamburger, #ch-menu{*/
-/*    display:none;*/
-/*}*/
+#hamburger, #ch-menu, #home-medium{
+    display:none;
+}
 
 body{
-    --menu-height: 50px;
-    --button-width: 250px;
+    --menu-height: 60px;
+    --button-width: 230px;
 }
 
 nav{
@@ -13,18 +13,28 @@ nav{
     width: 100%;
     position: sticky;
     top: 0;
-
-}
-
-ul.nav-bar, ul.nav-bar ul{
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
+    z-index: 1;
 }
 
 ul.nav-bar{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+}
+
+ul.nav-bar > li{
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: var(--button-width);
+    transition: font-size 250ms linear;
+}
+
+ul.nav-bar>li>div>a{
+    transition: font-size 250ms linear;
+}
+
+ul.nav-bar>li>a:hover, ul.nav-bar>li>div>a:hover{
+    font-size: 18px;
 }
 
 ul.nav-bar li{
@@ -33,6 +43,7 @@ ul.nav-bar li{
     background-color: var(--red);
     overflow: hidden;
     text-align: center;
+    box-sizing: border-box;
 }
 
 ul.nav-bar li div, ul.nav-bar li a{
@@ -45,19 +56,49 @@ ul.nav-bar li div, ul.nav-bar li a{
     line-height: var(--menu-height);
 }
 
-ul.nav-bar ul{
-    box-shadow: 10px 10px 10px black;
-}
-
-ul.nav-bar li a{
-    transition: background-color 250ms linear;
-}
-
 ul.nav-bar li:hover{
     overflow: visible;
 }
 
-ul.nav-bar li a:hover{
-    background-color: var(--white);
-    color: var(--red);
+ul.nav-bar ul{
+    position: relative;
+    z-index: 2;
 }
+
+ul.sub-nav-bar>li{
+    position: relative;
+}
+
+ul.sub-nav-bar>li::before{
+    content:'';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 5%;
+    background-image: linear-gradient(to right, var(--white), var(--red));
+    transform-origin: top;
+    transform: scale(1, 0);
+    transition: all 250ms linear;
+}
+
+ul.sub-nav-bar>li::after{
+    content:'';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 5%;
+    background-image: linear-gradient(to right, var(--red), var(--white));
+    transform-origin: top;
+    transform: scale(1, 0);
+    transition: all 250ms linear;
+}
+
+ul.sub-nav-bar>li:hover::after, ul.sub-nav-bar>li:hover::before{
+    transform: scale(1, 1);
+}
+
+
+
+

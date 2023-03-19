@@ -24,3 +24,7 @@ p{
 #responsive-layout{
     display: block;
 }
+
+footer iframe{
+    width: 80%;
+}
