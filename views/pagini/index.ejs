@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <title>Licitatii auto</title>
+
+    <meta name="description" content="Licitatii auto. Masini. Autoturisme">
+    <!-- descrierea paginii, adesea apare sub link când sunt afișate rezultatele căutării -->
+    <meta name="keywords" content="licitatii, auto, masina, autoturism">
+    <!--cuvintele cheie ale paginii; majoritatea motoarelor de căutare ignoră keywords -->
+    <%- include("../fragmente/head.ejs") %>
+</head>
+<body>
+
+<%- include("../fragmente/header.ejs") %> <!--Header + nav-bar -->
+
+<main>
+    <div id="responsive-layout">
+        <section id="despre-noi">
+            <h2>Cumpără <b>mașini</b> second hand la <b>licitație</b></h2>
+            <p>Vă punem la dispoziție o gamă variata de <b>autoturisme, autoutilitare, motociclete sau camionete</b>.
+                Aici
+                veți găsi ceea ce căutați în domeniul auto.</p>
+            <figure>
+                <picture>
+                    <source media="(min-width: 2000px)" srcset="./resurse/imagini/car1920.jpg">
+                    <source media="(min-width: 1300px)" srcset="./resurse/imagini/car1280.jpg">
+                    <source media="(min-width: 750px)" srcset="./resurse/imagini/car640.jpg">
+                    <img src="./resurse/imagini/ico/favicon-32x32.png" alt="carpicture">
+                </picture>
+                <figcaption>Masina</figcaption>
+                <a href="./resurse/imagini/car1920.jpg" download="car">Descarcă imaginea.</a>
+            </figure>
+
+        </section>
+
+        <section id="s-tabel">
+            <table id="tabel">
+                <caption>Comisioanele pentru 2023</caption>
+                <tr>
+                    <th rowspan="2">Țara</th>
+                    <th colspan="2">Costurile specifice țării</th>
+                    <th colspan="6">Taxa de licitație</th>
+                </tr>
+                <tr>
+                    <th>Intern</th>
+                    <th>Export</th>
+                    <th>< 2500&euro;</th>
+                    <th>< 5000&euro;</th>
+                    <th>< 10 000&euro;</th>
+                    <th>< 20 000&euro;</th>
+                    <th>< 30 000&euro;</th>
+                    <th>&geq; 30 000&euro;</th>
+                </tr>
+                <tr>
+                    <td>RO</td>
+                    <td>< 135&euro;</td>
+                    <td>< 145&euro;</td>
+                    <td rowspan="4">< 110&euro;</td>
+                    <td rowspan="4">< 175&euro;</td>
+                    <td rowspan="4">< 230&euro;</td>
+                    <td rowspan="4">< 285&euro;</td>
+                    <td rowspan="4">< 370&euro;</td>
+                    <td rowspan="4">< 450&euro;</td>
+                </tr>
+                <tr>
+                    <td>DE</td>
+                    <td>< 140&euro;</td>
+                    <td>< 160&euro;</td>
+
+                </tr>
+                <tr>
+                    <td>IT</td>
+                    <td>< 200&euro;</td>
+                    <td>< 400&euro;</td>
+
+                </tr>
+                <tr>
+                    <td>NL</td>
+                    <td>< 135&euro;</td>
+                    <td>< 135&euro;</td>
+
+                </tr>
+                <tfoot>
+                <tr>
+                    <td>Altele</td>
+                    <td>< 150&euro;</td>
+                    <td>< 150&euro;</td>
+                    <td colspan="6">500&euro;</td>
+                </tr>
+                </tfoot>
+
+            </table>
+        </section>
+
+        <section id="calendar">
+            <h2>Calendar</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid cum, dolorem incidunt iste, itaque
+                maxime modi natus necessitatibus numquam odio officia quae quis recusandae repellendus veniam
+                voluptatibus?
+                Asperiores aut, autem cum, dolor dolore doloribus ea est pariatur, possimus quaerat rem rerum similique
+                sit!
+                Consequatur consequuntur earum eius illo iusto maxime officia quam quos sapiente velit! Animi eligendi
+                libero reprehenderit? Accusamus culpa debitis dolore eaque error est ex expedita, in incidunt iusto
+                laudantium magni nemo nihil nobis numquam odit officia optio provident quis sapiente sequi sint soluta
+                tenetur ut veniam voluptate voluptatum! Animi cumque dicta doloribus explicabo id officiis vero.</p>
+        </section>
+
+        <section id="anunt">
+            <h2>Anunturi</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid cum, dolorem incidunt iste, itaque
+                maxime modi natus necessitatibus numquam odio officia quae quis recusandae repellendus veniam
+                voluptatibus?
+                Asperiores aut, autem cum, dolor dolore doloribus ea est pariatur, possimus quaerat rem rerum similique
+                sit!
+                Consequatur consequuntur earum eius illo iusto maxime officia quam quos sapiente velit! Animi eligendi
+                libero reprehenderit? Accusamus culpa debitis dolore eaque error est ex expedita, in incidunt iusto
+                laudantium magni nemo nihil nobis numquam odit officia optio provident quis sapiente sequi sint soluta
+                tenetur ut veniam voluptate voluptatum! Animi cumque dicta doloribus explicabo id officiis vero.</p>
+        </section>
+
+        <section id="online">
+            <h2>Utilizatori online</h2>
+            <p>
+                Ip: <%- locals.ip %>
+            </p>
+            <p>Suma: <%- locals.a + locals.b %></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid cum, dolorem incidunt iste, itaque
+                maxime modi natus necessitatibus numquam odio officia quae quis recusandae repellendus veniam
+                voluptatibus?
+                Asperiores aut, autem cum, dolor dolore doloribus ea est pariatur, possimus quaerat rem rerum similique
+                sit!
+                Consequatur consequuntur earum eius illo iusto maxime officia quam quos sapiente velit! Animi eligendi
+                libero reprehenderit? Accusamus culpa debitis dolore eaque error est ex expedita, in incidunt iusto
+                laudantium magni nemo nihil nobis numquam odit officia optio provident quis sapiente sequi sint soluta
+                tenetur ut veniam voluptate voluptatum! Animi cumque dicta doloribus explicabo id officiis vero.</p>
+        </section>
+
+        <section id="statistici">
+            <h2>Date despre utilizatori si statistici</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid cum, dolorem incidunt iste, itaque
+                maxime modi natus necessitatibus numquam odio officia quae quis recusandae repellendus veniam
+                voluptatibus?
+                Asperiores aut, autem cum, dolor dolore doloribus ea est pariatur, possimus quaerat rem rerum similique
+                sit!
+                Consequatur consequuntur earum eius illo iusto maxime officia quam quos sapiente velit! Animi eligendi
+                libero reprehenderit? Accusamus culpa debitis dolore eaque error est ex expedita, in incidunt iusto
+                laudantium magni nemo nihil nobis numquam odit officia optio provident quis sapiente sequi sint soluta
+                tenetur ut veniam voluptate voluptatum! Animi cumque dicta doloribus explicabo id officiis vero.</p>
+        </section>
+
+        <section id="server">
+            <h2>Date despre site si server</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid cum, dolorem incidunt iste, itaque
+                maxime modi natus necessitatibus numquam odio officia quae quis recusandae repellendus veniam
+                voluptatibus?
+                Asperiores aut, autem cum, dolor dolore doloribus ea est pariatur, possimus quaerat rem rerum similique
+                sit!
+                Consequatur consequuntur earum eius illo iusto maxime officia quam quos sapiente velit! Animi eligendi
+                libero reprehenderit? Accusamus culpa debitis dolore eaque error est ex expedita, in incidunt iusto
+                laudantium magni nemo nihil nobis numquam odit officia optio provident quis sapiente sequi sint soluta
+                tenetur ut veniam voluptate voluptatum! Animi cumque dicta doloribus explicabo id officiis vero.</p>
+        </section>
+
+        <div id="diverse">
+            <section id="motive">
+                <h2>Motivele pentru care să alegeți AuctionRider:</h2>
+                <h3><strong>Autoturisme de calitate</strong></h3>
+                <p>Vehiculele vândute de noi sunt verificate de către specialiștii noștri. Acestea provin de la <i
+                        lang="en">dealer</i>i
+                    autorizați.</p>
+                <h3><strong>Suntem la dispoziția dumneavoastră întotdeauna</strong></h3>
+                <p>În cazul în care nu sunteți mulțumit de serviciile noastre sau întâmpinați dificultăți în momentul
+                    achiziționării unui autoturism, ne puteți contacta pentru a rezolva problemele apărute.</p>
+            </section>
+
+            <section id="popular">
+                <h2>Anunțuri Populare</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur delectus dolore eius eligendi
+                    eos eum itaque iusto maxime, modi nam pariatur praesentium quaerat quod repudiandae saepe unde
+                    voluptas? Amet in incidunt libero praesentium soluta unde. Amet corporis dolorum facere iste iusto
+                    laboriosam reiciendis repellat vitae? Accusamus eaque et ipsum perferendis ullam? At dolorem earum
+                    impedit inventore maiores nostrum odio pariatur quam quidem quo! Adipisci aliquam animi asperiores
+                    blanditiis, consectetur cum delectus eos et excepturi facere, hic id impedit inventore iusto libero
+                    molestias nam obcaecati pariatur perspiciatis quisquam quo sit suscipit tempore ut voluptatem.
+                    Aliquam esse laboriosam mollitia nemo nobis quis.</p>
+            </section>
+
+            <section id="noutati">
+                <h2>Noutăți din lumea auto</h2>
+
+                <video id="video-bord" controls preload="auto">
+                    <source src="./resurse/videoclipuri/car.mp4" type="video/mp4">
+                    <source src="./resurse/videoclipuri/car2.mkv" type="video/mkv">
+                    <track src="./resurse/videoclipuri/carvideo.vtt" kind="subtitles" srclang="ro" label="Romana">
+                    <track src="./resurse/videoclipuri/carvideoen.vtt" kind="subtitles" srclang="en" label="English">
+                    Your browser does not support the video tag.
+                </video>
+
+                <section id="articole">
+                    <h3>Știri și articole:</h3>
+                    <article>
+                        <h4>BMW își câștigă în instanță dreptul de a produce motoare cu ardere internă și după anul
+                            2030</h4>
+                        <p><q>Motoarele cu ardere internă au o viață tot mai grea în Germania, acolo unde autoritățile
+                            își
+                            doresc dispariția acestora cât mai curând posibil. Deutsche Umwelthilfe, una dintre cele mai
+                            importante organizații ecologiste din Germania a vrut să impună celor de la BMW să nu mai
+                            producă
+                            motoare cu ardere internă după anul 2030, însă constructorul german nu a stat cu mâinile în
+                            sân.</q>
+                        </p>
+                        <p>Citește întregul articol <a
+                                href="https://www.promotor.ro/stiri-auto/bmw-isi-castiga-in-instanta-dreptul-de-a-produce-motoare-cu-ardere-interna-si-dupa-anul-2030-19146087"
+                                target="_blank">aici.</a></p>
+                    </article>
+                </section>
+                <section id="review">
+                    <h3><i lang="en">Tuning</i> si <i lang="en">review</i>-uri auto</h3>
+                    <div class="flex-container">
+                        <div class="flex-links">
+                            <a href="https://www.youtube.com/embed/4K4Is06NRfk" target="ifr-video">Audi A6 2020
+                                Review </a>
+                            <a href="https://www.youtube.com/embed/F5AkEvohq38" target="ifr-video">BMW M5 Competition
+                                Tuning</a>
+                            <a href="https://www.youtube.com/embed/fEF-LdtfCHI" target="ifr-video">Toyota GR Supra
+                                Review</a>
+                        </div>
+                        <div class="flex-iframe">
+                            <iframe name="ifr-video"
+                                    src="https://www.youtube.com/embed/4K4Is06NRfk"
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section id="faq">
+                <h2>Întrebări frecvente</h2>
+                <details>
+                    <summary>Cum funcționează procesul de licitare?</summary>
+                    <p>Odată ce v-ați înregistrat pe AuctionRider, puteți participa la licitații. Accesați pagina de
+                        detalii
+                        a
+                        autovehiculului pentru care doriți să licitați. Introduceți oferta dumneavoastră. Nu puteți
+                        introduce o
+                        ofertă mai micp decât prețul de pornire sau decât cea mai mare ofertă curentă.</p>
+                </details>
+                <details>
+                    <summary>Cum plătesc pentru autovechicul?</summary>
+                    <p>După ce ați câștigat licitația și vânzătorul v-a atribuit vehiculul, aveți la dispoziție o zi
+                        lucrătoare
+                        pentru a finaliza achiziția online a vehiculului. După ce primiți invitația de plată, plătiți
+                        vehiculul
+                        prin transfer bancar în termen de două zile lucrătoare.</p>
+                </details>
+                <details>
+                    <summary>Cum pot comanda transportul autovehiculului?</summary>
+                    <p>Conectați-vă și verificați „Opțiuni de transport” în pagina cu detalii despre mașină pentru a
+                        vedea
+                        timpul de livrare estimat și prețurile. Taxele de transport afişate pe website-ul nostru sunt
+                        orientative şi variază în funcţie de locaţia şi gradul de avariere a vehiculului. </p>
+                </details>
+            </section>
+        </div>
+    </div>
+
+</main>
+
+<%- include("../fragmente/footer.ejs") %>
+
+<button id="link-top">
+    <a href="#" title="Link top">&#5123</a>
+</button>
+
+</body>
+</html>
