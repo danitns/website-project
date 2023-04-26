@@ -2,38 +2,53 @@
 	"cale_galerie":"resurse/imagini/galerie",
 	"imagini": [
 		{
-			"fisier":"briose-frisca.png",
-			"descriere":"Brioșe",
-			"luni":["martie","februarie","noiembrie"]
+			"cale_relativa":"renault-talisman.jpg",
+			"nume": "Renault Talisman",
+			"descriere":"Renault Talisman 1.6Tce",
+			"timp":"dimineata"
 		},
 		{
-			"fisier":"clatite.png",
-			"descriere":"Clătite cu dulceață",
-			"luni":["ianuarie","februarie","iunie"]
+			"cale_relativa":"audi-a5.jpg",
+			"nume": "Audi A5",
+			"descriere":"Audi A5 3.0TDI",
+			"timp":"zi"
 			
 		},
 		{
-			"fisier":"gogosi.png",
-			"descriere":"Gogoși glazurate",
-			"luni":["ianuarie","noiembrie","iunie","martie"]
+			"cale_relativa":"vw-golf-v.jpg",
+			"nume": "Volkswagen Golf V",
+			"descriere":"Volkswagen Golf V R32",
+			"timp":"noapte"
 		},
 		{
-			"fisier":"tort-scortisoara.png",
-			"descriere":"Tort cu scorțisoară",
-			
-			"luni":["noiembrie"]
+			"cale_relativa":"vw-passat-b6.jpg",
+			"nume": "Volkswagen Passat B6",
+			"descriere":"Volkswagen Passat B6 2.0TDI",
+			"timp":["dimineata", "zi", "noapte"]
 		},
 		{
-			"fisier":"prajitura-ciocolata.png",
-			"descriere":"Prăjitură cu ciocolată"
+			"cale_relativa":"audi-tt.jpg",
+			"nume": "Audi TT",
+			"descriere":"Audi TT 2.5TSI",
+			"timp":["dimineata", "zi", "noapte"]
 		},
 		{
-			"fisier":"tarta-afine.png",
-			"descriere":"Tartă cu afine"
+			"cale_relativa":"dacia-logan.jpg",
+			"nume": "Dacia Logan",
+			"descriere":"Dacia Logan 1.6MPI",
+			"timp":["dimineata", "zi", "noapte"]
 		},
 		{
-			"fisier":"tort-trandafiri.png",
-			"descriere":"Tort special"
+			"cale_relativa":"vw-golf-vii.jpg",
+			"nume": "Volkswagen Golf VII",
+			"descriere":"Volkswagen Golf VII 2.0TSI",
+			"timp":["dimineata", "zi", "noapte"]
+		},
+		{
+			"cale_relativa":"mazda-mx5.jpg",
+			"nume": "Mazda MX-5",
+			"descriere":"Mazda MX-5",
+			"timp":["dimineata", "zi", "noapte"]
 		}
 	]
 }

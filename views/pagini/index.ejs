@@ -168,9 +168,11 @@
                 <p>Vehiculele vândute de noi sunt verificate de către specialiștii noștri. Acestea provin de la <i
                         lang="en">dealer</i>i
                     autorizați.</p>
+                <hr>
                 <h3><strong>Suntem la dispoziția dumneavoastră întotdeauna</strong></h3>
                 <p>În cazul în care nu sunteți mulțumit de serviciile noastre sau întâmpinați dificultăți în momentul
                     achiziționării unui autoturism, ne puteți contacta pentru a rezolva problemele apărute.</p>
+                <div id="efect-css-duotone"></div>
             </section>
 
             <section id="popular">
@@ -183,15 +185,25 @@
                     blanditiis, consectetur cum delectus eos et excepturi facere, hic id impedit inventore iusto libero
                     molestias nam obcaecati pariatur perspiciatis quisquam quo sit suscipit tempore ut voluptatem.
                     Aliquam esse laboriosam mollitia nemo nobis quis.</p>
+                <%- include("../fragmente/galerie-statica.ejs") %>
             </section>
 
             <section id="noutati">
                 <h2>Noutăți din lumea auto</h2>
 
-                <video id="video-bord" controls preload="auto">
+                <div id="container">
+                    <div id="text">
+                        Video
+                    </div>
+                    <div id="text-reflectat">
+                        Video
+                    </div>
+                </div>
+
+                <video id="video-masina" controls preload="auto">
                     <source src="./resurse/videoclipuri/car.mp4" type="video/mp4">
                     <source src="./resurse/videoclipuri/car2.mkv" type="video/mkv">
-                    <track src="./resurse/videoclipuri/carvideo.vtt" kind="subtitles" srclang="ro" label="Romana">
+                    <track src="./resurse/videoclipuri/carvideo.vtt" kind="subtitles" srclang="ro" label="Romanian" default>
                     <track src="./resurse/videoclipuri/carvideoen.vtt" kind="subtitles" srclang="en" label="English">
                     Your browser does not support the video tag.
                 </video>
@@ -263,6 +275,7 @@
                         orientative şi variază în funcţie de locaţia şi gradul de avariere a vehiculului. </p>
                 </details>
             </section>
+
         </div>
     </div>
 

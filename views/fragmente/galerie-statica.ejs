@@ -1,0 +1,30 @@
+<div id="grid-galerie">
+    <%
+    // d = new Date("25 April 2023 3:00:00");
+    //
+    // var imagini_filtrate = [];
+    // for(let imag of locals.imagini){
+    //     if(imag.timp && (d.getHours() >= 5 && d.getHours() < 12 && imag.timp.includes("dimineata")) ||
+    //             (d.getHours() >= 12 && d.getHours() < 20 && imag.timp.includes("zi")) ||
+    //             ((d.getHours() >= 20 || d.getHours() < 5) && imag.timp.includes("noapte"))) {
+    //         imagini_filtrate.push(imag);
+    //     }
+    // }
+    //
+    // if(imagini_filtrate.length > 6 && (imagini_filtrate.length % 3 !== 0)){
+    //     imagini_filtrate.length = imagini_filtrate.length - (imagini_filtrate.length % 3);
+    // }
+    //
+    // console.log(imagini_filtrate);
+
+    for (let imag of locals.imagini) {
+    %>
+        <figure class="grid-item">
+            <picture>
+                <source srcset="<%- imag.fisier_mediu %>" media="(max-width:1000px)" />
+                <img src="<%- imag.cale_relativa %>" alt=<%imag.nume%>>
+            </picture>
+            <figcaption><%- imag.descriere %></figcaption>
+        </figure>
+    <% }  %>
+</div>

@@ -1,0 +1,23 @@
+#grid-galerie {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 0.5em;
+  grid-column-gap: 0.5em;
+  counter-reset: nrimag 0; /* nrimag=3 */
+  $nr-imag: 0;
+}
+
+$start-index: 1;
+$num-of-images: 18;
+$cols: 4;
+
+@for $i from $start-index through $num-of-images {
+  $row-start: 2 * floor(calc($i / 3)) + ceil(0.5 * ($i % 3));
+  $col-start: if($i % 3 == 1, 1, if($i % 3 == 2, 3, 2));
+  $row-end: $row-start + 1;
+  $col-end: $col-start + 2;
+  $grid-area: #{$row-start} / #{$col-start} / #{$row-end} / #{$col-end};
+  .grid-item:nth-child(#{$i}) {
+    grid-area: $grid-area;
+  }
+}
