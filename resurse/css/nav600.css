@@ -9,7 +9,7 @@ body{
 }
 
 #hamburger i{
-    color: var(--white);
+    color: var(--secondary-color);
     line-height: 100%;
     display: block;
     padding: 4px;

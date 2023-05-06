@@ -14,12 +14,12 @@ h1{
 }
 
 h3{
-    color: var(--red);
+    color: var(--primary-color);
 }
 
 a:not(.nav-bar-link){
-    color: var(--red);
-    background-image: radial-gradient(var(--light-gray)0%, var(--light-gray)40%, transparent 80%, transparent 100%);
+    color: var(--primary-color);
+    background-image: radial-gradient(var(--light-contrast-color)0%, var(--light-contrast-color)40%, transparent 80%, transparent 100%);
     background-size: 0;
     background-position: center;
     transition: background-size 200ms linear;
@@ -35,35 +35,44 @@ a[href^="http"]::before{
 }
 
 body{
-    --light-gray:rgb(176, 176, 176);
-    --dark-gray:rgb(45, 45, 45);
-    --white:rgb(255, 255, 255);
-    --black:rgb(0, 0, 0);
-    --red:rgb(206, 0, 0);
+    --light-contrast-color:rgb(176, 176, 176);
+    --dark-contrast-color:rgb(45, 45, 45);
 
-    background-color: var(--white);
-    color: var(--black);
+    --secondary-color:white;
+    --primary-color:rgb(206, 0, 0);
+    --dark-secondary-color: black;
+
+    /*light theme*/
+    --light-background-color: white;
+    --light-font-color: black;
+
+    /*dark theme*/
+    --dark-background-color: black;
+    --dark-font-color: rgb(176, 176, 176);
+
+    background-color: var(--light-background-color);
+    color: var(--light-font-color);
 
     --padding-intern: 1vw;
 }
 
 header{
-    background-color: var(--white);
-    color: var(--red);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 footer{
-    background-color: var(--black);
-    color: var(--light-gray);
+    background-color: var(--dark-background-color);
+    color: var(--dark-font-color);
     padding: 1%;
 }
 
 footer a:link, footer a:visited{
-    color: var(--light-gray);
+    color: var(--dark-font-color);
 }
 
 footer a:hover, footer a:active{
-    color: var(--white);
+    color: var(--secondary-color);
 }
 
 footer iframe{
@@ -86,11 +95,11 @@ main section p{
 }
 
 #responsive-layout > * {
-    border: 0.18em solid var(--dark-gray);
+    border: 0.18em solid var(--dark-contrast-color);
 }
 
 #diverse > section{
-    border: 0.18em solid var(--light-gray);
+    border: 0.18em solid var(--light-contrast-color);
 }
 
 
@@ -100,12 +109,12 @@ main section p{
     bottom: 1%;
     left: 90%;
     font-size: 2.8em;
-    border: 5px solid var(--dark-gray);
-    background-color: var(--red);
+    border: 5px solid var(--dark-contrast-color);
+    background-color: var(--primary-color);
     border-radius: 50%;
     opacity: 0.5;
     transition: opacity 300ms;
-    box-shadow: 10px 10px 10px var(--dark-gray);
+    box-shadow: 0 0 10px 10px var(--dark-contrast-color);
     width: 80px;
     height: 80px;
     line-height: 50px;
@@ -116,11 +125,11 @@ main section p{
 }
 
 #link-top a:link, #link-top a:visited{
-    color: var(--white);
+    color: var(--secondary-color);
 }
 
 #link-top a:hover, #link-top a:active{
-    color: var(--black);
+    color: var(--light-font-color);
 }
 /*---LINK-TOP---*/
 
@@ -133,8 +142,8 @@ main section p{
 }
 
 .flex-container a:link, .flex-container a:visited{
-    background-color: var(--red);
-    color: var(--white);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     padding: 14px 25px;
     text-align: center;
     text-decoration: none;
@@ -143,8 +152,8 @@ main section p{
 }
 
 .flex-container a:hover, .flex-container a:active{
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--secondary-color);
+    color: var(--light-font-color);
 }
 
 .flex-iframe{
@@ -164,7 +173,7 @@ main section p{
     width: 90%;
     height: 85%;
     padding: 5%;
-    background-color: var(--red);
+    background-color: var(--primary-color);
 }
 
 .flex-links{
@@ -185,7 +194,7 @@ main section p{
 }
 
 #tabel th, #tabel td, #tabel{
-    border: 1px solid var(--black);
+    border: 1px solid var(--dark-secondary-color);
     border-collapse: collapse;
     text-align: center;
     vertical-align: center;
@@ -193,16 +202,16 @@ main section p{
 
 #tabel th{
     height: 1vw;
-    background-color: var(--dark-gray);
-    color: var(--white);
+    background-color: var(--dark-contrast-color);
+    color: var(--secondary-color);
 }
 
 #tabel tr:nth-child(even){
-    background-color: var(--light-gray);
+    background-color: var(--light-contrast-color);
 }
 
 #tabel tr:nth-child(odd){
-    background-color: var(--white);
+    background-color: var(--secondary-color);
 }
 
 #tabel tr{
@@ -210,8 +219,8 @@ main section p{
 }
 
 #tabel tr:hover{
-    background-color: var(--dark-gray);
-    color: var(--white);
+    background-color: var(--dark-contrast-color);
+    color: var(--secondary-color);
 }
 
 #tabel caption{
@@ -271,8 +280,8 @@ main section p{
 hr {
     color: transparent;
     height: 50px;
-    box-shadow: 0 0 20px 20px var(--light-gray);
-    background-color: var(--light-gray);
+    box-shadow: 0 0 20px 20px var(--light-contrast-color);
+    background-color: var(--light-contrast-color);
     /*background-image: repeating-radial-gradient(transparent, transparent, var(--light-gray) 80%, var(--light-gray) 100%);*/
     background-image: radial-gradient(white, white, transparent, transparent);
 
@@ -352,5 +361,5 @@ hr::before {
 }
 
 #container:hover{
-    color: var(--red);
+    color: var(--primary-color);
 }

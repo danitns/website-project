@@ -1,7 +1,28 @@
 @use '../../node_modules/bootstrap/scss/bootstrap.scss' with
 (
   $primary: red,
-  $secondary: purple
+  $secondary: white,
+  $border-radius: 0.2rem,
+  $display-font-family: "Montserrat",
+  $display-font-sizes: (
+  1: 6rem,
+  2: 5.5rem,
+  3: 4rem,
+  4: 3.5rem,
+  5: 3rem,
+  6: 2.5rem
+  ),
+  $btn-link-color: red
+);
+
+$custom-grid-breakpoints: (
+        md: 700px,
+        lg: 1000px
+);
+
+$custom-container-max-widths: (
+    md: 699px,
+    lg: 999px,
 );
 
 *, *::before, *::after{

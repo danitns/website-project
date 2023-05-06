@@ -11,8 +11,19 @@
  counter-reset: nrimag 0;
 }
 #grid-galerie img{
-  width: 100%;
+    width: 100%;
+    scale: 1;
+    rotate: 0;
+    border-radius: 0;
+    transition: all 300ms linear;
 }
+
+#grid-galerie img:hover{
+    scale: 1.5;
+    rotate: 360deg;
+    border-radius: 10%;
+}
+
 #grid-galerie figcaption{
   text-align:center;
   counter-increment: nrimag 1;
@@ -21,3 +32,4 @@
 #grid-galerie figcaption::before{
   content: counter(nrimag, upper-alpha) ")";
 }
+
