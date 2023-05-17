@@ -1,30 +1,39 @@
-@use '../../node_modules/bootstrap/scss/bootstrap.scss' with
-(
-  $primary: red,
-  $secondary: white,
-  $border-radius: 0.2rem,
-  $display-font-family: "Montserrat",
-  $display-font-sizes: (
-  1: 6rem,
-  2: 5.5rem,
-  3: 4rem,
-  4: 3.5rem,
-  5: 3rem,
-  6: 2.5rem
-  ),
-  $btn-link-color: red
-);
+ $primary: rgb(206, 0, 0);
+ $secondary: white;
+ $border-radius: 0.2rem;
+ $display-font-family: "Montserrat";
+ $display-font-sizes: (
+         1: 6rem,
+         2: 5.5rem,
+         3: 4rem,
+         4: 3.5rem,
+         5: 3rem,
+         6: 2.5rem
+ );
 
-$custom-grid-breakpoints: (
+ @import '../../node_modules/bootstrap/scss/functions';
+ @import '../../node_modules/bootstrap/scss/variables';
+
+ $btn-link-color: rgb(45, 45, 45);
+ $font-size-base: 1rem;
+ $form-range-thumb-width: $font-size-base * 1.5;
+ $form-range-thumb-height: $form-range-thumb-width;
+
+ $custom-grid-breakpoints: (
         md: 700px,
         lg: 1000px
 );
+
+ @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
 $custom-container-max-widths: (
     md: 699px,
     lg: 999px,
 );
 
-*, *::before, *::after{
+iframe{
   box-sizing: unset;
 }
+
+$form-range-thumb-width: $font-size-base * 1.5;
+

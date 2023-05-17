@@ -1,0 +1,38 @@
+.flex-container-produse{
+    display:flex;
+    flex-flow: column;
+    border: 5px var(--secondary-contrast-color) solid;
+    padding: 5px;
+    margin: 10px;
+}
+
+.rand-flex-produse {
+    display:flex;
+    flex-flow: row;
+
+}
+
+.coloana-flex-produse{
+    padding: 10px;
+    flex: 50%;
+}
+
+figure img{
+    width: 100%;
+}
+
+h3 {
+    padding: 0;
+    margin: 0;
+}
+
+.caracteristica {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.val {
+    font-weight: normal;
+    text-decoration: none;
+    color: var(--primary-font-color);
+}

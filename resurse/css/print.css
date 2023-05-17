@@ -23,7 +23,7 @@
         position: absolute;
         top: 0;
         right: 0;
-        color: var(--light-font-color);
+        color: var(--primary-font-color);
     }
     #banner::after{
         padding:6px;

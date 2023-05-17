@@ -1,6 +1,13 @@
+<script src="/resurse/js/tema.js"></script>
 <header>
     <p id="banner"></p>
-    <h1>AuctionRider</h1>
+    <div>
+        <span class="form-check form-switch position-static mx-lg-5 mt-4 d-inline-block">
+            <input class="form-check-input" type="checkbox" role="switch" id="tema">
+            <label class="form-check-label" for="tema">Tema</label>
+        </span>
+        <h1>AuctionRider</h1>
+    </div>
 </header>
 
 <p id="watermark"></p>
@@ -24,9 +31,9 @@
         </li>
         <li><a class="nav-bar-link" href="/produse">Cauta autoturisme</a>
             <ul class="sub-nav-bar">
-                <li><a class="nav-bar-link" href="/produse?tip=gelaterie">Gelaterie</a></li>
-                <li><a class="nav-bar-link" href="/produse?tip=cofetarie">Prajituri</a></li>
-                <li><a class="nav-bar-link" href="/produse?tip=patiserie">Patiserie</a></li>
+            <%for (let opt of locals.optiuniMeniu) {%>
+                <li><a class="nav-bar-link" href="/produse?tip=<%-opt%>"><%-opt%></a></li>
+            <%}%>
             </ul>
         </li>
 

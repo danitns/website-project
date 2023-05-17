@@ -5,6 +5,16 @@ const sharp = require('sharp');
 const sass = require('sass');
 
 const {Client} = require('pg');
+const AccesBD = require("./module_proprii/accesbd.js");
+
+AccesBD.getInstanta().select({
+    tabel: "cars",
+    campuri: ['marca', 'pret', 'caroserie'],
+    conditiiAnd:["pret > 10000"]
+}, function(err, rez){
+    console.log(err);
+    console.log(rez);
+});
 
 
 var client= new Client({database:"dbtest",
@@ -13,11 +23,7 @@ var client= new Client({database:"dbtest",
     host:"localhost",
     port:5432});
 client.connect();
-client.query("select * from tabel_test", function(err, rez){
-    console.log("Eroare BD",err);
 
-    console.log("Rezultat BD",rez.rows);
-});
 
 
 
@@ -27,16 +33,34 @@ obGlobal={
     folderScss: path.join(__dirname, "resurse/scss"),
     folderCss: path.join(__dirname, "resurse/css"),
     folderBackup: path.join(__dirname, "backup"),
-    optiuniMeniu: []
+    optiuniMeniu: null,
+    optiuniTransmisie: null
 }
 
-client.query("select * from unnest(enum_range(null::tipuri_produse))", function(err, rezCategorie) {
+client.query("select * from unnest(enum_range(null::tip_caroserie))", function(err, rezCategorie) {
     if (err) {
         console.log(err);
     }
     else{
-        obGlobal.optiuniMeniu = rezCategorie.rows;
-        console.log(obGlobal.optiuniMeniu[0].unnest);
+        let vOptiuni = [];
+        for(let categ of rezCategorie.rows) {
+            vOptiuni.push(categ.unnest);
+        }
+        obGlobal.optiuniMeniu = vOptiuni;
+    }
+});
+
+client.query("select * from unnest(enum_range(null::tip_transmisie))", function(err, rezCategorie){
+    if (err) {
+        console.log(err);
+    }
+    else{
+        let vOptiuni = [];
+        for(let categ of rezCategorie.rows) {
+            vOptiuni.push(categ.unnest);
+        }
+        obGlobal.optiuniTransmisie = vOptiuni;
+        console.log(obGlobal.optiuniTransmisie[0]);
     }
 });
 
@@ -53,10 +77,6 @@ for(let folder of vectorFoldere){
         fs.mkdirSync(caleFolder);
     }
 }
-
-// app.get("/ceva", function(req, res){
-//     res.send("altceva");
-// });
 
 function compileazaScss(caleScss, caleCss) {
     console.log("cale:", caleCss);
@@ -134,9 +154,9 @@ app.get("/produse",function(req, res){
 
     //TO DO query pentru a selecta toate produsele
     //TO DO se adauaga filtrarea dupa tipul produsului
-    //TO DO se selecteaza si toate valorile din enum-ul categ_prajitura
+    //TO DO se selecteaza si toate valorile din enum-ul tip_combustibil
 
-    client.query("select * from unnest(enum_range(null::categ_prajitura))", function(err, rezCategorie){
+    client.query("select * from unnest(enum_range(null::tip_combustibil))", function(err, rezCategorie){
         if(err) {
             console.log(err);
         }
@@ -144,29 +164,28 @@ app.get("/produse",function(req, res){
             let conditieWhere = "";
 
             if(req.query.tip)
-                conditieWhere = ` where tip_produs='${req.query.tip}' `
+                conditieWhere = ` where caroserie='${req.query.tip}' `
 
-            client.query("select * from prajituri" + conditieWhere , function( err, rez){
+            client.query("select * from cars" + conditieWhere , function( err, rez){
                 if(err){
                     console.log(err);
                     afisareEroare(res, 2);
                 }
                 else
-                    res.render("pagini/produse", {produse:rez.rows, optiuni:rezCategorie.rows});
+                {
+                    res.render("pagini/produse", {produse:rez.rows, optiuni:rezCategorie.rows, opt_transimie: obGlobal.optiuniTransmisie});
+                }
+
             });
         }
     });
-
-
-
-
 });
 
 
 app.get("/produs/:id",function(req, res){
     console.log(req.params);
 
-    client.query(`select * from prajituri where id = ${req.params.id}`, function( err, rezultat){
+    client.query(`select * from cars where id = ${req.params.id}`, function( err, rezultat){
         if(err){
             console.log(err);
             afisareEroare(res, 2);
