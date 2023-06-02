@@ -1,6 +1,6 @@
 <script src="/resurse/js/tema.js"></script>
 <header>
-    <p id="banner"></p>
+    <p id="bannerPrint"></p>
     <div>
         <span class="form-check form-switch position-static mx-lg-5 mt-4 d-inline-block">
             <input class="form-check-input" type="checkbox" role="switch" id="tema">
@@ -29,14 +29,32 @@
                 <li><a class="nav-bar-link" href="/home#faq">Întrebări frecvente</a></li>
             </ul>
         </li>
-        <li><a class="nav-bar-link" href="/produse">Cauta autoturisme</a>
+        <li><a class="nav-bar-link" href="/produse">Cauta</a>
             <ul class="sub-nav-bar">
             <%for (let opt of locals.optiuniMeniu) {%>
                 <li><a class="nav-bar-link" href="/produse?tip=<%-opt%>"><%-opt%></a></li>
             <%}%>
             </ul>
         </li>
-
+        <li><a class="nav-bar-link" href="/inregistrare">Inregistrare</a></li>
+        <li><a class="nav-bar-link" href="/cos-virtual">Cos virtual</a></li>
+        <% if(locals?.utilizator?.areDreptul?.(Drepturi.vizualizareUtilizatori)) { %>
+            <li><div>Administrare</div>
+                <ul>
+                    <li><a class="nav-bar-link" href="/useri">Useri</a></li>
+                    <li><a class="nav-bar-link" href="/grafice">Grafice</a></li>
+                    <li><a class="nav-bar-link" href="/comenzi">Comenzi</a></li>
+                </ul>
+            </li>
+        <% } %>
+        <% if(locals.utilizator) { %>
+            <li><div><%- locals.utilizator.username %></div>
+                <ul>
+                    <li><a class="nav-bar-link" href="/profil">Profil</a></li>
+                    <li><a class="nav-bar-link" href="/logout">Logout</a></li>
+                </ul>
+            </li>
+        <% } %>
         <li><a class="nav-bar-link" href="">Vinde</a></li>
         <li><a class="nav-bar-link" href="">Contact</a></li>
     </ul>

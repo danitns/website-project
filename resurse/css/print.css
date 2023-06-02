@@ -18,14 +18,14 @@
         list-style-type: lower-roman;
     }
 
-    #banner{
+    #bannerPrint{
         display: block;
         position: absolute;
         top: 0;
         right: 0;
         color: var(--primary-font-color);
     }
-    #banner::after{
+    #bannerPrint::after{
         padding:6px;
         display: block;
         background: white;
