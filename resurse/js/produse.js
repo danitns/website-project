@@ -168,13 +168,16 @@ window.addEventListener("load", function () {
     }
 
     window.onkeydown = function(e) {
-        if(e.key === "c" && e.altKey) {
-            if(document.getElementById("info-suma"))
+        let ps;
+        let container;
+        let frate;
+        if (e.key === "c" && e.altKey) {
+            if (document.getElementById("info-suma"))
                 return;
             var produse = document.getElementsByClassName("produs");
             let suma = 0;
-            for(let prod of produse) {
-                if(prod.style.display !== "none"){
+            for (let prod of produse) {
+                if (prod.style.display !== "none") {
                     let pret = parseFloat(prod.getElementsByClassName("val-pret")[0].innerHTML);
                     suma += pret;
                 }
@@ -186,9 +189,9 @@ window.addEventListener("load", function () {
             container = ps.parentNode;
             frate = ps.nextElementSibling;
             container.insertBefore(p, frate);
-            setTimeout(function(){
+            setTimeout(function () {
                 let info = document.getElementById("info-suma");
-                if(info)
+                if (info)
                     info.remove();
             }, 1000);
         }

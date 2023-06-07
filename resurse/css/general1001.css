@@ -31,3 +31,22 @@ p{
     "z-diverse z-diverse z-diverse z-diverse";
     gap: 20px;
 }
+
+#banner{
+    animation-duration: 3s;
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    0%{
+        margin-bottom: -30%;
+    }
+    50%{
+        margin-bottom: 20px;
+        color: var(--secondary-font-color);
+
+    }
+    100%{
+        margin-bottom: 0;
+    }
+}

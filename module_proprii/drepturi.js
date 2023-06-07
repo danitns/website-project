@@ -7,6 +7,9 @@
  @property {Symbol} cumparareProduse Dreptul de a cumpara
 
  @property {Symbol} vizualizareGrafice Dreptul de a vizualiza graficele de vanzari
+ @property {Symbol} creareAnunturi Dreptul de a crea anunturi pe site
+ @property {Symbol} editProfil Dreptul de a edita profilul unui utilizator
+ @property {Symbol} editAnunturi Dreptul de a edita anunturile de pe site
  */
 
 
@@ -18,7 +21,10 @@ const Drepturi = {
 	vizualizareUtilizatori: Symbol("vizualizareUtilizatori"),
 	stergereUtilizatori: Symbol("stergereUtilizatori"),
 	cumparareProduse: Symbol("cumparareProduse"),
-	vizualizareGrafice: Symbol("vizualizareGrafice")
+	vizualizareGrafice: Symbol("vizualizareGrafice"),
+	creareAnunturi: Symbol("creareAnunturi"),
+	editProfil: Symbol("editProfil"),
+	editAnunturi: Symbol("editAnunturi")
 }
 
 module.exports=Drepturi;

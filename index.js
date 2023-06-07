@@ -71,10 +71,7 @@ client.query("select * from cars", function (err, rezProduse) {
         for(let prod of rezProduse.rows) {
             vProduse.push(prod);
         }
-        console.log("aaaaa");
         obGlobal.produseCarousel = vProduse;
-        console.log(vProduse);
-        console.log("aaaaa");
     }
 
 });
@@ -88,7 +85,6 @@ client.query("select * from unnest(enum_range(null::tip_transmisie))", function 
             vOptiuni.push(categ.unnest);
         }
         obGlobal.optiuniTransmisie = vOptiuni;
-        console.log(obGlobal.optiuniTransmisie[0]);
     }
 });
 
@@ -170,6 +166,7 @@ app.set("view engine", "ejs");
 
 app.use("/resurse", express.static(__dirname + "/resurse"));
 app.use("/node_modules", express.static(__dirname + "/node_modules"));
+app.use("/poze_uploadate",express.static(__dirname+"/poze_uploadate"));
 
 app.use("/*", function (req, res, next) {
     res.locals.optiuniMeniu = obGlobal.optiuniMeniu;
@@ -245,7 +242,6 @@ app.get("/produs/:id", function (req, res) {
 
 app.post("/login", function (req, res) {
     var username;
-    console.log("ceva");
     var formular = new formidable.IncomingForm()
     formular.parse(req, function (err, campuriText, campuriFisier) {
         Utilizator.getUtilizDupaUsername(campuriText.username, {
@@ -422,7 +418,6 @@ app.get("/update_grafice", function (req, res) {
 app.post("/inregistrare", function (req, res) {
     var username;
     var poza;
-    console.log("ceva");
     var formular = new formidable.IncomingForm()
     formular.parse(req, function (err, campuriText, campuriFisier) {//4
         console.log("Inregistrare:", campuriText);
@@ -549,7 +544,6 @@ app.post("/profil", function (req, res) {
                 return;
             } else {
                 //actualizare sesiune
-                console.log("ceva");
                 req.session.utilizator.nume = campuriText.nume;
                 req.session.utilizator.prenume = campuriText.prenume;
                 req.session.utilizator.email = campuriText.email;
