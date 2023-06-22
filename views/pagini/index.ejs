@@ -16,43 +16,31 @@
 <main>
     <div id="responsive-layout">
         <section id="despre-noi">
-            <h2>Cumpără <b>mașini</b> second hand la <b>licitație</b></h2>
+            <% if(locals.utilizator) { %>
+                <h2 style="margin-top:40px; margin-bottom:40px">Bun venit, <%- locals.utilizator.username%><img style="position:fixed; width:100px; display: inline; margin-top:-25px" src="<%-locals.utilizator.poza?locals.utilizator.poza:"/resurse/imagini/profile.png"%>" alt="poza"></h2>
+            <%} else {%>
+                <h2>Cumpără <b>mașini</b> second hand la <b>licitație</b></h2>
+            <%}%>
+
             <p>Vă punem la dispoziție o gamă variata de <b>autoturisme, autoutilitare, motociclete sau camionete</b>.
                 Aici
                 veți găsi ceea ce căutați în domeniul auto.</p>
-            <% if(!locals.utilizator) { %>
-                <form id="form_inreg"  method="post" class="date"  action="/login"  enctype="multipart/form-data">
-                    <p>
-                        <label>
-                            Username: <input type="text" name="username" id="inp-username" value="" required>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            Parola: <input id="parl" type="password" required  name="parola" value="">
-                        </label>
-                    </p>
-                    <p><input type="submit" value="Logare"></p>
-                </form>
-                <p><%- locals.mesajLogin %></p>
-            <% } else {%>
-                <%- locals.succesLogin %>
-            <% }  %>
-<!--            <figure>-->
-<!--                <picture>-->
-<!--                    <source media="(min-width: 2000px)" srcset="/resurse/imagini/car1920.jpg">-->
-<!--                    <source media="(min-width: 1300px)" srcset="/resurse/imagini/car1280.jpg">-->
-<!--                    <source media="(min-width: 750px)" srcset="/resurse/imagini/car640.jpg">-->
-<!--                    <img src="/resurse/imagini/ico/favicon-32x32.png" alt="carpicture">-->
-<!--                </picture>-->
-<!--                <figcaption>Masina</figcaption>-->
-<!--                <a href="/resurse/imagini/car1920.jpg" download="car">Descarcă imaginea.</a>-->
-<!--            </figure>-->
+            <figure>
+                <picture>
+                    <source media="(min-width: 2000px)" srcset="/resurse/imagini/car1920.jpg">
+                    <source media="(min-width: 1300px)" srcset="/resurse/imagini/car1280.jpg">
+                    <source media="(min-width: 750px)" srcset="/resurse/imagini/car640.jpg">
+                    <img src="/resurse/imagini/ico/favicon-32x32.png" alt="carpicture">
+                </picture>
+                <figcaption>Masina</figcaption>
+                <a href="/resurse/imagini/car1920.jpg" download="car">Descarcă imaginea.</a>
+            </figure>
             <%- include("../fragmente/carousel.ejs")%>
 
         </section>
 
         <section id="s-tabel">
+            <h2>Tabel comisioane</h2>
             <table id="tabel">
                 <caption>Comisioanele pentru 2023</caption>
                 <tr>
@@ -135,6 +123,16 @@
                 libero reprehenderit? Accusamus culpa debitis dolore eaque error est ex expedita, in incidunt iusto
                 laudantium magni nemo nihil nobis numquam odit officia optio provident quis sapiente sequi sint soluta
                 tenetur ut veniam voluptate voluptatum! Animi cumque dicta doloribus explicabo id officiis vero.</p>
+            <aside>
+                <blockquote>Motoarele cu ardere internă au o viață tot mai grea în Germania, acolo unde autoritățile
+                    își
+                    doresc dispariția acestora cât mai curând posibil. Deutsche Umwelthilfe, una dintre cele mai
+                    importante organizații ecologiste din Germania a vrut să impună celor de la BMW să nu mai
+                    producă
+                    motoare cu ardere internă după anul 2030, însă constructorul german nu a stat cu mâinile în
+                    sân.
+                </blockquote>
+            </aside>
         </section>
 
         <section id="online">
@@ -210,37 +208,39 @@
             <section id="noutati">
                 <h2>Noutăți din lumea auto</h2>
 
-                <div id="container">
-                    <div id="text">
-                        Video
+                <div id="video-si-reflexie">
+                    <div id="container">
+                        <div id="text">
+                            Video
+                        </div>
+                        <div id="text-reflectat">
+                            Video
+                        </div>
                     </div>
-                    <div id="text-reflectat">
-                        Video
-                    </div>
-                </div>
 
-                <video id="video-masina" controls preload="auto">
-                    <source src="/resurse/videoclipuri/car.mp4" type="video/mp4">
-                    <source src="/resurse/videoclipuri/car2.mkv" type="video/mkv">
-                    <track src="/resurse/videoclipuri/carvideo.vtt" kind="subtitles" srclang="ro" label="Romanian" default>
-                    <track src="/resurse/videoclipuri/carvideoen.vtt" kind="subtitles" srclang="en" label="English">
-                    Your browser does not support the video tag.
-                </video>
+                    <video id="video-masina" controls preload="auto">
+                        <source src="/resurse/videoclipuri/car.mp4" type="video/mp4">
+                        <source src="/resurse/videoclipuri/car2.mkv" type="video/mkv">
+                        <track src="/resurse/videoclipuri/carvideo.vtt" kind="subtitles" srclang="ro" label="Romanian" default>
+                        <track src="/resurse/videoclipuri/carvideoen.vtt" kind="subtitles" srclang="en" label="English">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
 
                 <section id="articole">
                     <h3>Știri și articole:</h3>
                     <article>
-                        <h4>BMW își câștigă în instanță dreptul de a produce motoare cu ardere internă și după anul
-                            2030</h4>
-                        <p><q>Motoarele cu ardere internă au o viață tot mai grea în Germania, acolo unde autoritățile
+                        <h4><q>BMW își câștigă în instanță dreptul de a produce motoare cu ardere internă și după anul
+                            2030</q></h4>
+                        <q>Motoarele cu ardere internă au o viață tot mai grea în Germania, acolo unde autoritățile
                             își
                             doresc dispariția acestora cât mai curând posibil. Deutsche Umwelthilfe, una dintre cele mai
                             importante organizații ecologiste din Germania a vrut să impună celor de la BMW să nu mai
                             producă
                             motoare cu ardere internă după anul 2030, însă constructorul german nu a stat cu mâinile în
-                            sân.</q>
-                        </p>
-                        <p>Citește întregul articol <a
+                            sân.
+                        </q>
+                        <p>Citește întregul articol <a class="link-bg"
                                 href="https://www.promotor.ro/stiri-auto/bmw-isi-castiga-in-instanta-dreptul-de-a-produce-motoare-cu-ardere-interna-si-dupa-anul-2030-19146087"
                                 target="_blank">aici.</a></p>
                     </article>
@@ -249,11 +249,11 @@
                     <h3><i lang="en">Tuning</i> si <i lang="en">review</i>-uri auto</h3>
                     <div class="flex-container">
                         <div class="flex-links">
-                            <a href="https://www.youtube.com/embed/4K4Is06NRfk" target="ifr-video">Audi A6 2020
+                            <a class="iframe-links" href="https://www.youtube.com/embed/4K4Is06NRfk" target="ifr-video">Audi A6 2020
                                 Review </a>
-                            <a href="https://www.youtube.com/embed/F5AkEvohq38" target="ifr-video">BMW M5 Competition
+                            <a class="iframe-links" href="https://www.youtube.com/embed/F5AkEvohq38" target="ifr-video">BMW M5 Competition
                                 Tuning</a>
-                            <a href="https://www.youtube.com/embed/fEF-LdtfCHI" target="ifr-video">Toyota GR Supra
+                            <a class="iframe-links" href="https://www.youtube.com/embed/fEF-LdtfCHI" target="ifr-video">Toyota GR Supra
                                 Review</a>
                         </div>
                         <div class="flex-iframe">
@@ -303,7 +303,7 @@
 <%- include("../fragmente/footer.ejs") %>
 
 <button id="link-top">
-    <a href="#" title="Link top">&#5123</a>
+    <a href="#" title="Link top">&#5123;</a>
 </button>
 
 </body>

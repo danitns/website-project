@@ -7,6 +7,7 @@
     "express-session": "^1.17.3",
     "formidable": "^2.1.1",
     "helmet": "^7.0.0",
+    "http": "^0.0.1-security",
     "mongodb": "^5.5.0",
     "nodemailer": "^6.9.2",
     "pg": "^8.10.0",
@@ -15,6 +16,7 @@
     "request": "^2.88.2",
     "sass": "^1.61.0",
     "sharp": "^0.32.0",
+    "socket.io": "^4.6.2",
     "xml-js": "^1.6.11"
   },
   "name": "project",

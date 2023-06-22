@@ -10778,3 +10778,7 @@ textarea.form-control-lg {
 iframe {
   box-sizing: unset;
 }
+
+.checkbox input[type=checkbox] {
+  margin-left: 0;
+}

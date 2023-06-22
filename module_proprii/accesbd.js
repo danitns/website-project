@@ -61,6 +61,7 @@ class AccesBD{
 
             //initializarea poate arunca erori
             //vom adauga aici cazurile de initializare 
+            //vom adauga aici cazurile de initializare
             //pentru baza de date cu care vrem sa lucram
             try{
                 switch(init){
@@ -86,7 +87,7 @@ class AccesBD{
      * @typedef {object} ObiectQuerySelect - obiect primit de functiile care realizeaza un query
      * @property {string} tabel - numele tabelului
      * @property {string []} campuri - o lista de stringuri cu numele coloanelor afectate de query; poate cuprinde si elementul "*"
-     * @property {string[]} conditiiAnd - lista de stringuri cu conditii pentru where
+     * @property {string[]} conditii - lista de stringuri cu conditii pentru where
      */
 
 
@@ -102,11 +103,14 @@ class AccesBD{
      *
      * @param {ObiectQuerySelect} obj - un obiect cu datele pentru query
      * @param {function} callback - o functie callback cu 2 parametri: eroare si rezultatul queryului
+     * @param parametriQuery - parametrii pentru query
      */
-    select({tabel="",campuri=[],conditiiAnd=[]} = {}, callback, parametriQuery=[]){
+    select({tabel="",campuri=[],conditii=[[]]} = {}, callback, parametriQuery=[]){
         let conditieWhere=""; //conditiiAnd devine conditii - vector de siruri - and intre elementele din sir si or intre siruri
-        if(conditiiAnd.length>0)
-            conditieWhere=`where ${conditiiAnd.join(" and ")}`; 
+        if(conditii[0].length>0){
+            console.log(conditii[0].length);
+            conditieWhere=`where ${conditii.map(innerVector => innerVector.join(' and ')).join(' or ')}`;
+        }
         let comanda=`select ${campuri.join(",")} from ${tabel} ${conditieWhere}`;
         console.error(comanda);
         /*
@@ -116,10 +120,10 @@ class AccesBD{
         */
         this.client.query(comanda,parametriQuery, callback)
     }
-    async selectAsync({tabel="",campuri=[],conditiiAnd=[]} = {}){
+    async selectAsync({tabel="",campuri=[],conditii=[]} = {}){
         let conditieWhere="";
-        if(conditiiAnd.length>0)
-            conditieWhere=`where ${conditiiAnd.join(" and ")}`;
+        if(conditii.length>0)
+            conditieWhere=`where ${conditii.map(innerVector => innerVector.join(' and ')).join(' or ')}`;
         
         let comanda=`select ${campuri.join(",")} from ${tabel} ${conditieWhere}`;
         console.error("selectAsync:",comanda);
@@ -162,31 +166,31 @@ class AccesBD{
     //     this.client.query(comanda,callback)
     // }
 
-    update({tabel="",campuri={}, conditiiAnd=[]} = {}, callback, parametriQuery){
+    update({tabel="",campuri={}, conditii=[]} = {}, callback, parametriQuery){
         let campuriActualizate=[];
         for(let prop in campuri)
             campuriActualizate.push(`${prop}='${campuri[prop]}'`);
         let conditieWhere="";
-        if(conditiiAnd.length>0)
-            conditieWhere=`where ${conditiiAnd.join(" and ")}`;
+        if(conditii.length>0)
+            conditieWhere=`where ${conditii.map(innerVector => innerVector.join(' and ')).join(' or ')}`;
         let comanda=`update ${tabel} set ${campuriActualizate.join(", ")}  ${conditieWhere}`;
         console.log(comanda);
         this.client.query(comanda,callback)
     }
 
-    // updateParametrizat({tabel="",campuri=[],valori=[], conditiiAnd=[]} = {}, callback, parametriQuery){
-    //     if(campuri.length!=valori.length)
-    //         throw new Error("Numarul de campuri difera de nr de valori")
-    //     let campuriActualizate=[];
-    //     for(let i=0;i<campuri.length;i++)
-    //         campuriActualizate.push(`${campuri[i]}=$${i+1}`);
-    //     let conditieWhere="";
-    //     if(conditiiAnd.length>0)
-    //         conditieWhere=`where ${conditiiAnd.join(" and ")}`;
-    //     let comanda=`update ${tabel} set ${campuriActualizate.join(", ")}  ${conditieWhere}`;
-    //     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111",comanda);
-    //     this.client.query(comanda,valori, callback)
-    // }
+    updateParametrizat({tabel="",campuri=[],valori=[], conditii=[]} = {}, callback, parametriQuery){
+        if(campuri.length!=valori.length)
+            throw new Error("Numarul de campuri difera de nr de valori")
+        let campuriActualizate=[];
+        for(let i=0;i<campuri.length;i++)
+            campuriActualizate.push(`${campuri[i]}=$${i+1}`);
+        let conditieWhere="";
+        if(conditii.length>0)
+            conditieWhere=`where ${conditii.map(innerVector => innerVector.join(' and ')).join(' or ')}`;
+        let comanda=`update ${tabel} set ${campuriActualizate.join(", ")}  ${conditieWhere}`;
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111",comanda);
+        this.client.query(comanda,valori, callback)
+    }
 
 
     //TO DO
@@ -201,10 +205,10 @@ class AccesBD{
     //     this.client.query(comanda,valori, callback)
     // }
 
-    delete({tabel="",conditiiAnd=[]} = {}, callback){
+    delete({tabel="",conditii=[]} = {}, callback){
         let conditieWhere="";
-        if(conditiiAnd.length>0)
-            conditieWhere=`where ${conditiiAnd.join(" and ")}`;
+        if(conditii.length>0)
+            conditieWhere=`where ${conditii.map(innerVector => innerVector.join(' and ')).join(' or ')}`;
         
         let comanda=`delete from ${tabel} ${conditieWhere}`;
         console.log(comanda);

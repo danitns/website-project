@@ -15,7 +15,7 @@ class Utilizator{
     static numeDomeniu="localhost:8080";
     #eroare;
 
-    constructor({id, username, nume, prenume, email, parola, rol, culoare_chat="black", poza}={}) {
+    constructor({id, username, nume, prenume, email, parola, rol, culoare_chat="black", poza, data_nasterii, ocupatie}={}) {
         this.id=id;
 
         //optional sa facem asta in constructor
@@ -43,6 +43,13 @@ class Utilizator{
         if (this.checkName(nume)) this.nume=nume
         else{
             throw new Error("Nume gresit")
+        }
+    }
+
+    set setarePrenume(nume){
+        if (this.checkName(nume)) this.prenume=nume
+        else{
+            throw new Error("Prenume gresit")
         }
     }
 
@@ -77,13 +84,15 @@ class Utilizator{
                 email:this.email,
                 culoare_chat:this.culoare_chat,
                 cod:token,
-                poza:this.poza}
+                poza:this.poza,
+                data_nasterii: this.data_nasterii,
+                ocupatie: this.ocupatie}
             }, function(err, rez){
             if(err)
                 console.log(err);
             
-            utiliz.trimiteMail("Te-ai inregistrat cu succes","Username-ul tau este "+utiliz.username,
-            `<h1>Salut!</h1><p style='color:blue'>Username-ul tau este ${utiliz.username}.</p> <p><a href='http://${Utilizator.numeDomeniu}/cod/${utiliz.username}/${token}'>Click aici pentru confirmare</a></p>`,
+            utiliz.trimiteMail("Cont nou","Username-ul tau este "+utiliz.username,
+            `<h1>Bine ai venit in comunitatea AuctionRider!</h1><p >Username-ul tau este <span style='color:green; font-weight:bold'>${utiliz.username}</span>.</p> <p><a href='http://${Utilizator.numeDomeniu}/cod/${utiliz.username}/${token}'>Click aici pentru confirmare</a></p>`,
             )
         });
     }
@@ -120,7 +129,7 @@ class Utilizator{
             let rezSelect= await AccesBD.getInstanta(Utilizator.tipConexiune).selectAsync(
                 {tabel:"utilizatori",
                 campuri:['*'],
-                conditiiAnd:[`username='${username}'`]
+                conditii:[[`username='${username}'`]]
             });
             if(rezSelect.rowCount!=0){
                 return new Utilizator(rezSelect.rows[0])
@@ -139,7 +148,7 @@ class Utilizator{
     static getUtilizDupaUsername (username,obparam, proceseazaUtiliz){
         if (!username) return null;
         let eroare=null;
-        AccesBD.getInstanta(Utilizator.tipConexiune).select({tabel:"utilizatori",campuri:['*'],conditiiAnd:[`username='${username}'`]}, function (err, rezSelect){
+        AccesBD.getInstanta(Utilizator.tipConexiune).select({tabel:"utilizatori",campuri:['*'],conditii:[[`username='${username}'`]]}, function (err, rezSelect){
             if(err){
                 console.error("Utilizator:", err);
                 //throw new Error()

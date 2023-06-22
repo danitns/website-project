@@ -1,0 +1,6 @@
+#mesaje_chat{
+    border:1px solid black;
+    height:200px;
+    overflow:auto;
+    width:200px;
+}

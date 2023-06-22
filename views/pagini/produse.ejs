@@ -37,11 +37,11 @@
             </div>
 
             <div class="row">
-                <div class="col-6">
+                <div class="col-auto col-6 form-floating mt-1">
+                    <textarea class="form-control" rows="1" id="inp-nume" placeholder="Introduceti marca"></textarea>
                     <label for="inp-nume"> Marca: </label>
-                    <textarea class="form-control" rows="1" id="inp-nume"></textarea>
                 </div>
-                <div class="col-6">
+                <div class="col-auto col-6 ">
                     <label for="inp-transmisie">Alege transmisia:</label>
                     <select class="form-select" id="inp-transmisie" aria-label="Default select example">
                         <option selected>Transmisie</option>
@@ -53,20 +53,24 @@
             </div>
 
             <div class="row">
-                <div class="col-2">
-                    <label for="inp-noutati">Noutati:</label>
+                <div class="col-auto">
                     <input class="form-check-input" type="checkbox" id="inp-noutati" value="Nou" autocomplete="off">
+                    <label class="form-label" for="inp-noutati">Noutati:</label>
                 </div>
-                <div class="col-10">
+                <div class="col-auto">
+                    <% var interval = {
+                        st: Math.floor((locals.val_filtrare.maxKm - locals.val_filtrare.minKm) / 3 + locals.val_filtrare.minKm),
+                        dr: Math.floor((locals.val_filtrare.maxKm - locals.val_filtrare.minKm) / 3 * 2 + locals.val_filtrare.minKm)
+                    } %>
                     <div class="btn-group btn-group-toggle m-1">
-                        <p><label class="btn btn-outline-primary m-1">KM &lt; 100.000
-                                <input id="i_rad1"  name="gr_rad" value="0:100000" type="radio"/>
+                        <p><label class="btn btn-outline-primary m-1">KM &lt; <%-interval.st%>
+                                <input id="i_rad1"  name="gr_rad" value="<%-locals.val_filtrare.minKm%>:<%-interval.st%>" type="radio"/>
                             </label></p>
-                        <p><label class="btn btn-outline-primary m-1">100.000 &le; KM &lt; 200.000
-                                <input id="i_rad2"  name="gr_rad" value="100000:200000" type="radio"/>
+                        <p><label class="btn btn-outline-primary m-1"><%-interval.st%> &le; KM &lt; <%-interval.dr%>
+                                <input id="i_rad2"  name="gr_rad" value="<%-interval.st%>:<%-interval.dr%>" type="radio"/>
                             </label>
-                        <p><label class="btn btn-outline-primary m-1">200.000 &le; KM
-                                <input id="i_rad3" name="gr_rad" value="200000:1000000" type="radio"/>
+                        <p><label class="btn btn-outline-primary m-1"><%-interval.dr%> &le; KM
+                                <input id="i_rad3" name="gr_rad" value="<%-interval.dr%>:<%-locals.val_filtrare.maxKm%>" type="radio"/>
                             </label>
                         <p><label class="btn btn-outline-primary m-1">Toate
                                 <input id="i_rad4" checked name="gr_rad" value="Toate" type="radio"/>
@@ -74,14 +78,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-9">
-                    <label class="form-label" for="inp-pret"> Pret minim:<span id="infoRangeMin">0</span></label>
-                        <input class="form-range" type="range" id="inp-pret" value="0" min="0"  max="100000">
-                        <span id="infoRangeMax">100.000</span>
-                        <span id="infoRange">(0)</span>
+            <div class="row  mb-2">
+                <div class="col-auto">
+                    <label class="form-label" for="inp-pret"> Pret minim:<span id="infoRangeMin"><%- locals.val_filtrare.minPret - 1%></span></label>
+                        <input class="form-range" type="range" id="inp-pret" value="<%- locals.val_filtrare.minPret - 1%>" min="<%- locals.val_filtrare.minPret - 1%>"  max="<%- locals.val_filtrare.maxPret%>">
+                        <span id="infoRangeMax"><%- locals.val_filtrare.maxPret%></span>
+                        <span id="infoRange">(<%- locals.val_filtrare.minPret - 1%>)</span>
                 </div>
-                <div class="col-3">
+                <div class="col-auto">
                     <label>Combustibil:
                         <select id="inp-combustibil" class="form-select" multiple aria-label=".form-select-sm example">
                             <option id="sel-toate" selected value="Toate">Toate</option>
@@ -93,20 +97,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-2">
-                    <button id="filtrare" type="button" class="btn btn-outline-primary"><i class="bi bi-funnel"></i>Filtreaza</button>
+                <div class="col-auto">
+                    <button id="filtrare" type="button" class="btn btn-outline-primary"><i class="bi bi-funnel"></i><span class="text-buton">Filtreaza</span></button>
                 </div>
-                <div class="col-2">
-                    <button id="resetare" type="button" class="btn btn-outline-primary"><i class="bi bi-x-lg"></i>Reseteaza</button><br/>
+                <div class="col-auto">
+                    <button id="resetare" type="button" class="btn btn-outline-primary"><i class="bi bi-x-lg"></i><span class="text-buton">Reseteaza</span></button><br/>
                 </div>
-                <div class="col-3">
-                    <button id="sortCrescAn" type="button" class="btn btn-outline-primary"><i class="bi bi-sort-up"></i>Sorteaza crescator</button>
+                <div class="col-auto">
+                    <button id="sortCrescAn" type="button" class="btn btn-outline-primary"><i class="bi bi-sort-up"></i><span class="text-buton">Sorteaza crescator</span></button>
                 </div>
-                <div class="col-3">
-                    <button id="sortDescrescAn" type="button" class="btn btn-outline-primary"><i class="bi bi-sort-down"></i>Sorteaza descrescator</button>
+                <div class="col-auto">
+                    <button id="sortDescrescAn" type="button" class="btn btn-outline-primary"><i class="bi bi-sort-down"></i><span class="text-buton">Sorteaza descrescator</span></button>
                 </div>
-                <div class="col-2">
-                    <p id="p-suma">Alt+C pentru suma preturilor</p>
+                <div class="col-auto">
+                    <button id="p-suma" type="button" class="btn btn-outline-primary"><i class="bi bi-calculator"></i><span class="text-buton">Suma</span></button>
+<!--                    <p id="p-suma">Alt+C pentru suma preturilor</p>-->
                 </div>
             </div>
         </div>
@@ -114,10 +119,13 @@
         <section id="produse">
             <h2>Produse</h2>
             <div class="grid-produse">
+                <p id="mesaj-filtre">Nu sunt produse disponibile. Modificati filtrele.</p>
                 <%  var month = ["Ianuarie","Februarie","Martie","Aprilie","Mai","Iunie","Iulie","August","Septembrie","Octombrie","Noiembrie","Decembrie"];
                     var name = month[d.getMonth()];
 
                     var p_negociabil = "Nu";
+
+                    nr=1;
 
 
                     for( let prod of locals.produse) {
@@ -132,6 +140,7 @@
                             <div>
                                 <h3 class="nume"><a href="/produs/<%-prod.id %>" ><span class="val-nume"><%- prod.marca%> <%- prod.model%> <%- prod.generatie%></span></a></h3>
                                 <div class="val-transmisie" style="display: none;"><%-prod.transmisie%></div>
+                                <p style="display: none" class="val-id"><%-prod.id %></p>
                             </div>
                             <div class="rand-flex-produse">
                                 <div class="coloana-flex-produse">
@@ -155,6 +164,26 @@
                                         Selectează:<br/>
                                         <input type="checkbox" class="select-cos" value="<%-prod.id %>" autocomplete="off">
                                     </label>
+                                    <button class="erase btn btn-outline-primary" id="erase<%=nr%>" title="The product won't be displayed">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                        </svg>
+                                    </button>
+
+                                    <button class="stay btn btn-outline-primary" id="stay<%=nr%>" title="This product will stay on page">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sticky-fill" viewBox="0 0 16 16">
+                                            <path d="M2.5 1A1.5 1.5 0 0 0 1 2.5v11A1.5 1.5 0 0 0 2.5 15h6.086a1.5 1.5 0 0 0 1.06-.44l4.915-4.914A1.5 1.5 0 0 0 15 8.586V2.5A1.5 1.5 0 0 0 13.5 1h-11zm6 8.5a1 1 0 0 1 1-1h4.396a.25.25 0 0 1 .177.427l-5.146 5.146a.25.25 0 0 1-.427-.177V9.5z"/>
+                                        </svg>
+                                    </button>
+
+                                    <button class="delete_session btn btn-outline-primary" id="del<%=nr%>" title="This product will be deleted during the whole session">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+                                            <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    </button>
+                                    <%nr++%>
                                 </div>
                             </div>
                         </div>
@@ -162,6 +191,10 @@
                 <% }%>
             </div>
         </section>
+        <div id = "controale_pag">
+            <button id="next" type="button" class="btn btn-outline-primary">Next</button>
+            <button id="previous" type="button" class="btn btn-outline-primary">Previous</button>
+        </div>
     </main>
 
     <%- include("../fragmente/footer") %>

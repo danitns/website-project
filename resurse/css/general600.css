@@ -1,5 +1,6 @@
 body{
     --spacing: 30px;
+    --gridgap: 5px;
 }
 
 h1{
@@ -21,8 +22,13 @@ p{
     white-space: nowrap;
 }
 
+.text-buton{
+    display: none;
+}
+
 #responsive-layout{
     display: block;
+    gap: var(--gridgap);
 }
 
 footer iframe{

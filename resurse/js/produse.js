@@ -1,5 +1,65 @@
 window.addEventListener("load", function () {
 
+    var eraseButtons=document.getElementsByClassName("erase");
+    for(let button of eraseButtons) {
+        button.onclick = function () {
+
+            var produse = document.getElementsByClassName("produs");
+            for (let prod of produse) {
+
+                let idProdus=prod.getElementsByClassName("val-id")[0].innerHTML;
+
+                let eraseButton = document.getElementById("erase" + idProdus);
+
+                eraseButton.onclick = function () {
+                    prod.style.display = "none";
+                }
+            }
+        }
+    }
+
+
+    var stayButtons=document.getElementsByClassName("stay");
+    for(let button of stayButtons) {
+        button.onclick = function () {
+
+            var produse = document.getElementsByClassName("produs");
+            for (let prod of produse) {
+
+                let idProdus=prod.getElementsByClassName("val-id")[0].innerHTML;
+
+                let stayButton = document.getElementById("stay" + idProdus);
+
+                stayButton.onclick = function () {
+                    stayButton.classList.toggle("pressed");
+                    prod.classList.toggle("alwaysShow");
+                }
+
+            }
+        }
+    }
+
+    var delButtons=document.getElementsByClassName("delete_session");
+    for(let button of delButtons) {
+        button.onclick = function () {
+
+            var produse = document.getElementsByClassName("produs");
+            for (let prod of produse) {
+
+                let idProdus=prod.getElementsByClassName("val-id")[0].innerHTML;
+
+                let delButton = document.getElementById("del" + idProdus);
+
+                delButton.onclick = function () {
+                    sessionStorage.setItem('productDeleted'+idProdus, 'true');
+                    prod.style.display="none";
+                }
+
+            }
+        }
+    }
+
+
     let iduriProduse=localStorage.getItem("cos_virtual");
     iduriProduse=iduriProduse?iduriProduse.split(","):[];      //["3","1","10","4","2"]
 
@@ -48,6 +108,8 @@ window.addEventListener("load", function () {
 
             document.getElementById("inp-caroserie").value = "";
 
+            document.getElementById("inp-descriere").value = "";
+
             document.getElementById("inp-transmisie").value = "Transmisie";
 
             document.getElementById("inp-pret").value=document.getElementById("inp-pret").min;
@@ -56,10 +118,72 @@ window.addEventListener("load", function () {
             var produse=document.getElementsByClassName("produs");
             document.getElementById("infoRange").innerHTML = "{0}";
             for (let prod of produse){
-                prod.style.display="block";
+                let idProdus=prod.getElementsByClassName("val-id")[0].innerHTML;
+                let isProductDeleted = sessionStorage.getItem('productDeleted'+idProdus) === 'true';
+                if(!isProductDeleted)
+                    prod.style.display="block";
             }
         }
     }
+
+    var produse = document.getElementsByClassName("produs");
+    var produse_filtrate = produse;
+
+    var prod_per_page = 4;
+    var nr_pag = Math.ceil(produse_filtrate.length / prod_per_page);
+
+    let pagina_curenta = 0;
+    function produsePagina() {
+        nr_pag = Math.ceil(produse_filtrate.length / prod_per_page)
+        for(let i = 0; i < produse_filtrate.length; i++) {
+            let idProdus = produse_filtrate[i].getElementsByClassName("val-id")[0].innerHTML;
+
+            var isProductDeleted = sessionStorage.getItem('productDeleted'+idProdus) === 'true';
+
+            if(Math.floor(i / prod_per_page) === pagina_curenta && !isProductDeleted)
+                produse_filtrate[i].style.display = "block";
+            else produse_filtrate[i].style.display = "none";
+        }
+    }
+
+    produsePagina();
+
+    document.getElementById("next").onclick = function() {
+        if(pagina_curenta < nr_pag) {
+            pagina_curenta++;
+            produsePagina();
+        }
+    }
+
+    document.getElementById("previous").onclick = function() {
+        if(pagina_curenta > 0) {
+            pagina_curenta--;
+            produsePagina();
+        }
+    }
+
+    let textarea = document.getElementById("inp-nume");
+
+    function validateTextarea(value) {
+        var regex = /^[a-zA-Z]+$/;
+        return regex.test(value);
+    }
+
+    textarea.addEventListener('input', function() {
+        // Validează inputul din <textarea>
+        var isValid = validateTextarea(this.value);
+
+        // Setează proprietatea 'isInvalid' a elementului <textarea> în funcție de validare
+        this.isInvalid = !isValid;
+
+        // Aplică o clasă CSS pentru a evidenția că inputul este invalid
+        if (!isValid) {
+            this.classList.add('is-invalid');
+        } else {
+            this.classList.remove('is-invalid');
+        }
+    });
+
 
 
     document.getElementById("filtrare").onclick = function () {
@@ -94,15 +218,13 @@ window.addEventListener("load", function () {
 
         let val_pret = document.getElementById("inp-pret").value;
 
-        var produse = document.getElementsByClassName("produs");
-
         let val_combustibil_selectat = document.getElementById("inp-combustibil").selectedOptions;
         let val_combustibil = "";
         for(let i = 0; i < val_combustibil_selectat.length; i++){
             val_combustibil += val_combustibil_selectat[i].value;
         }
 
-
+        produse_filtrate = [];
         for(let prod of produse) {
             prod.style.display = "none";
             let nume = prod.getElementsByClassName("val-nume")[0].innerHTML.toLowerCase();
@@ -134,10 +256,27 @@ window.addEventListener("load", function () {
             let transmisie = prod.getElementsByClassName("val-transmisie")[0].innerHTML;
             let cond8 = val_transmisie === "Transmisie" || val_transmisie === transmisie;
 
-            if(cond1 && cond2 && cond3 && cond4 && cond5 && cond6 && cond7 && cond8) {
-                prod.style.display="block";
+            var idProdus=prod.getElementsByClassName("val-id")[0].innerHTML;
+            var isProductDeleted = sessionStorage.getItem('productDeleted'+idProdus) === 'true';
+
+            //if(cond8){
+            let alwaysShow=prod.classList.contains("alwaysShow");
+            if(((cond1 && cond2 && cond3 && cond4 && cond5 && cond6 && cond7 && cond8) || alwaysShow) && !isProductDeleted){
+                produse_filtrate.push(prod);
+                //prod.style.display="block";
             }
+
+            // if(cond1 && cond2 && cond3 && cond4 && cond5 && cond6 && cond7 && cond8) {
+            //     produse_filtrate.push(prod);
+            //     //document.getElementById('mesaj-filtre').style.display="none";
+            //     //prod.style.display="block";
+            // }
         }
+
+        produsePagina();
+
+        if(produse_filtrate.length === 0)
+            document.getElementById('mesaj-filtre').style.display="block";
     }
 
     function sortare(semn) {
@@ -167,34 +306,64 @@ window.addEventListener("load", function () {
         sortare(-1);
     }
 
-    window.onkeydown = function(e) {
+    document.getElementById("p-suma").onclick = function (){
         let ps;
         let container;
         let frate;
-        if (e.key === "c" && e.altKey) {
-            if (document.getElementById("info-suma"))
-                return;
-            var produse = document.getElementsByClassName("produs");
-            let suma = 0;
-            for (let prod of produse) {
-                if (prod.style.display !== "none") {
-                    let pret = parseFloat(prod.getElementsByClassName("val-pret")[0].innerHTML);
-                    suma += pret;
-                }
+
+        if (document.getElementById("info-suma"))
+            return;
+        var produse = document.getElementsByClassName("produs");
+        let suma = 0;
+        for (let prod of produse) {
+            if (prod.style.display !== "none") {
+                let pret = parseFloat(prod.getElementsByClassName("val-pret")[0].innerHTML);
+                suma += pret;
             }
-            let p = document.createElement("p");
-            p.innerHTML = suma;
-            p.id = "info-suma";
-            ps = document.getElementById("p-suma");
-            container = ps.parentNode;
-            frate = ps.nextElementSibling;
-            container.insertBefore(p, frate);
-            setTimeout(function () {
-                let info = document.getElementById("info-suma");
-                if (info)
-                    info.remove();
-            }, 1000);
         }
+        let p = document.createElement("p");
+        p.innerHTML = suma;
+        p.id = "info-suma";
+        ps = document.getElementById("p-suma");
+        container = ps.parentNode;
+        frate = ps.nextElementSibling;
+        container.insertBefore(p, frate);
+        setTimeout(function () {
+            let info = document.getElementById("info-suma");
+            if (info)
+                info.remove();
+        }, 1000);
+
     }
+
+    // window.onkeydown = function(e) {
+    //     let ps;
+    //     let container;
+    //     let frate;
+    //     if (e.key === "c" && e.altKey) {
+    //         if (document.getElementById("info-suma"))
+    //             return;
+    //         var produse = document.getElementsByClassName("produs");
+    //         let suma = 0;
+    //         for (let prod of produse) {
+    //             if (prod.style.display !== "none") {
+    //                 let pret = parseFloat(prod.getElementsByClassName("val-pret")[0].innerHTML);
+    //                 suma += pret;
+    //             }
+    //         }
+    //         let p = document.createElement("p");
+    //         p.innerHTML = suma;
+    //         p.id = "info-suma";
+    //         ps = document.getElementById("p-suma");
+    //         container = ps.parentNode;
+    //         frate = ps.nextElementSibling;
+    //         container.insertBefore(p, frate);
+    //         setTimeout(function () {
+    //             let info = document.getElementById("info-suma");
+    //             if (info)
+    //                 info.remove();
+    //         }, 1000);
+    //     }
+    // }
 
 });

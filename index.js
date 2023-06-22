@@ -10,6 +10,7 @@ const AccesBD = require("./module_proprii/accesbd.js");
 
 const formidable = require("formidable");
 const {Utilizator} = require("./module_proprii/utilizator.js");
+const {Car} = require("./module_proprii/car.js");
 const session = require('express-session');
 const Drepturi = require("./module_proprii/drepturi.js");
 
@@ -20,13 +21,21 @@ const helmet = require('helmet');
 const xmljs = require('xml-js');
 
 const request = require("request");
+var app = express();
+app.set('view engine', 'ejs');
+
 
 
 AccesBD.getInstanta().select({
-    tabel: "cars", campuri: ['marca', 'pret', 'caroserie'], conditiiAnd: ["pret > 10000"]
+    tabel: "cars", campuri: ['min(km) as minkm', 'max(km) as maxkm', 'min(pret) as minpret', 'max(pret) as maxpret'], conditii: [[]]
 }, function (err, rez) {
     console.log(err);
-    console.log(rez);
+    obGlobal.filtrare = {
+        minKm: rez.rows[0].minkm,
+        maxKm: rez.rows[0].maxkm,
+        minPret: rez.rows[0].minpret,
+        maxPret: rez.rows[0].maxpret,
+    };
 });
 
 
@@ -44,6 +53,7 @@ obGlobal = {
     folderBackup: path.join(__dirname, "backup"),
     optiuniMeniu: null,
     optiuniTransmisie: null,
+    filtrare: {},
     produseCarousel: null,
     protocol: "http://",
     numeDomeniu: "localhost:8080",
@@ -168,6 +178,21 @@ app.use("/resurse", express.static(__dirname + "/resurse"));
 app.use("/node_modules", express.static(__dirname + "/node_modules"));
 app.use("/poze_uploadate",express.static(__dirname+"/poze_uploadate"));
 
+const http=require('http')
+const socket = require('socket.io');
+const server = new http.createServer(app);
+var  io= socket(server)
+io = io.listen(server);//asculta pe acelasi port ca si serverul
+
+
+
+io.on("connection", (socket) => {
+    console.log("Conectare!");
+    //if(!conexiune_index)
+    //	conexiune_index=socket
+    socket.on('disconnect', () => {conexiune_index=null;console.log('Deconectare')});
+});
+
 app.use("/*", function (req, res, next) {
     res.locals.optiuniMeniu = obGlobal.optiuniMeniu;
     res.locals.Drepturi = Drepturi;
@@ -217,9 +242,9 @@ app.get("/produse", function (req, res) {
                 if (err) {
                     console.log(err);
                     afisareEroare(res, 2);
-                } else {
+                } else{
                     res.render("pagini/produse", {
-                        produse: rez.rows, optiuni: rezCategorie.rows, opt_transimie: obGlobal.optiuniTransmisie
+                        produse: rez.rows, optiuni: rezCategorie.rows, opt_transimie: obGlobal.optiuniTransmisie, val_filtrare: obGlobal.filtrare
                     });
                 }
 
@@ -264,6 +289,33 @@ app.post("/login", function (req, res) {
     });
 });
 
+/*****CHAT*/
+app.post('/mesaj', function(req, res) {
+
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+        console.log("primit mesaj")
+        //if(conexiune_index){
+        io.sockets.emit('mesaj_nou', fields.nume, fields.culoare, fields.mesaj);
+        //}
+        console.log("ok");
+        res.send("ok");
+
+
+    });
+
+
+});
+
+app.get('/chat', function(req, res) {
+    if (!(req?.session?.utilizator && req.utilizator.areDreptul(Drepturi.vizualizareGrafice))) {
+        afisareEroare(res, 403,)
+        res.render("pagini/eroare_generala", {text: "Nu sunteti logat."});
+        return;
+    }
+    res.render("pagini/chat", {port:s_port});
+});
+
 /******************Administrare utilizatori */
 app.get("/useri", function(req, res){
 
@@ -279,21 +331,21 @@ app.get("/useri", function(req, res){
 });
 
 
-app.post("/sterge_utiliz", function(req, res){
-    if(req?.utilizator?.areDreptul?.(Drepturi.stergereUtilizatori)){
-        var formular= new formidable.IncomingForm();
-
-        formular.parse(req,function(err, campuriText, campuriFile){
-
-            AccesBD.getInstanta().delete({tabel:"utilizatori", conditiiAnd:[`id=${campuriText.id_utiliz}`]}, function(err, rezQuery){
-                console.log(err);
-                res.redirect("/useri");
-            });
-        });
-    }else{
-        afisareEroare(res,403);
-    }
-})
+// app.post("/sterge_utiliz", function(req, res){
+//     if(req?.utilizator?.areDreptul?.(Drepturi.stergereUtilizatori)){
+//         var formular= new formidable.IncomingForm();
+//
+//         formular.parse(req,function(err, campuriText, campuriFile){
+//
+//             AccesBD.getInstanta().delete({tabel:"utilizatori", conditiiAnd:[`id=${campuriText.id_utiliz}`]}, function(err, rezQuery){
+//                 console.log(err);
+//                 res.redirect("/useri");
+//             });
+//         });
+//     }else{
+//         afisareEroare(res,403);
+//     }
+// })
 
 
 // ^\w+\.ejs$
@@ -400,7 +452,7 @@ app.post("/cumpara", function (req, res) {
 
 app.get("/grafice", function (req, res) {
     if (!(req?.session?.utilizator && req.utilizator.areDreptul(Drepturi.vizualizareGrafice))) {
-        afisEroare(res, 403);
+        afisareEroare(res, 403);
         return;
     }
     res.render("pagini/grafice");
@@ -427,14 +479,19 @@ app.post("/inregistrare", function (req, res) {
 
         var utilizNou = new Utilizator();
         try {
+            if(!campuriText.nume.length || !campuriText.username.length || !campuriText.prenume.length || !campuriText.parola.length || !campuriText.rparola.length || !campuriText.email.length)
+                eroare += "Completati toate campurile"
+
             utilizNou.setareNume = campuriText.nume;
             utilizNou.setareUsername = campuriText.username;
             utilizNou.email = campuriText.email
-            utilizNou.prenume = campuriText.prenume
+            utilizNou.setarePrenume = campuriText.prenume
 
             utilizNou.parola = campuriText.parola;
             utilizNou.culoare_chat = campuriText.culoare_chat;
             utilizNou.poza = poza;
+            utilizNou.data_nasterii = campuriText.data_nasterii;
+            utilizNou.ocupatie = campuriText.ocupatie;
             Utilizator.getUtilizDupaUsername(campuriText.username, {}, function (u, parametru, eroareUser) {
                 if (eroareUser == -1) {//nu exista username-ul in BD
                     utilizNou.salvareUtilizator();
@@ -512,7 +569,7 @@ app.get("/cod/:username/:token", function (req, res) {
 app.post("/profil", function (req, res) {
     console.log("profil");
     if (!req.session.utilizator) {
-        randeazaEroare(res, 403,)
+        afisareEroare(res, 403,)
         res.render("pagini/eroare_generala", {text: "Nu sunteti logat."});
         return;
     }
@@ -529,8 +586,8 @@ app.post("/profil", function (req, res) {
         // },
         AccesBD.getInstanta().updateParametrizat({
             tabel: "utilizatori",
-            campuri: ["nume", "prenume", "email", "culoare_chat"],
-            valori: [`${campuriText.nume}`, `${campuriText.prenume}`, `${campuriText.email}`, `${campuriText.culoare_chat}`],
+            campuri: ["nume", "prenume", "email", "culoare_chat", "data_nasterii", "ocupatie"],
+            valori: [`${campuriText.nume}`, `${campuriText.prenume}`, `${campuriText.email}`, `${campuriText.culoare_chat}`, `${campuriText.data_nasterii}`, `${campuriText.ocupatie}`],
             conditiiAnd: [`parola='${parolaCriptata}'`, `username='${campuriText.username}'`] //??????
         }, function (err, rez) {
             if (err) {
@@ -548,11 +605,13 @@ app.post("/profil", function (req, res) {
                 req.session.utilizator.prenume = campuriText.prenume;
                 req.session.utilizator.email = campuriText.email;
                 req.session.utilizator.culoare_chat = campuriText.culoare_chat;
+                req.session.utilizator.data_nasterii = campuriText.data_nasterii;
+                req.session.utilizator.ocupatie = campuriText.ocupatie;
                 res.locals.utilizator = req.session.utilizator;
             }
 
 
-            res.render("pagini/profil", {mesaj: "Update-ul s-a realizat cu succes."});
+            res.render("pagini/profil", {mesaj: `Update-ul s-a realizat cu succes.`});
 
         });
 
@@ -560,18 +619,18 @@ app.post("/profil", function (req, res) {
     });
 });
 
-/******************Administrare utilizatori */
-app.get("/useri", function (req, res) {
-
-    if (req?.utilizator?.areDreptul?.(Drepturi.vizualizareUtilizatori)) {
-        AccesBD.getInstanta().select({tabel: "utilizatori", campuri: ["*"]}, function (err, rezQuery) {
-            console.log(err);
-            res.render("pagini/useri", {useri: rezQuery.rows});
-        });
-    } else {
-        afisareEroare(res, 403);
-    }
-});
+// /******************Administrare utilizatori */
+// app.get("/useri", function (req, res) {
+//
+//     if (req?.utilizator?.areDreptul?.(Drepturi.vizualizareUtilizatori)) {
+//         AccesBD.getInstanta().select({tabel: "utilizatori", campuri: ["*"]}, function (err, rezQuery) {
+//             console.log(err);
+//             res.render("pagini/useri", {useri: rezQuery.rows});
+//         });
+//     } else {
+//         afisareEroare(res, 403);
+//     }
+// });
 
 
 app.post("/sterge_utiliz", function (req, res) {
@@ -579,9 +638,8 @@ app.post("/sterge_utiliz", function (req, res) {
         var formular = new formidable.IncomingForm();
 
         formular.parse(req, function (err, campuriText, campuriFile) {
-
             AccesBD.getInstanta().delete({
-                tabel: "utilizatori", conditiiAnd: [`id=${campuriText.id_utiliz}`]
+                tabel: "utilizatori", conditii: [`id=${campuriText.id_utiliz}`]
             }, function (err, rezQuery) {
                 console.log(err);
                 res.redirect("/useri");
@@ -592,31 +650,120 @@ app.post("/sterge_utiliz", function (req, res) {
     }
 })
 
+app.post("/sterge", function (req, res) {
+    var formular = new formidable.IncomingForm();
+
+    var parolaCriptata = Utilizator.criptareParola(campuriText.parola);
+
+    formular.parse(req, function (err, campuriText) {
+        console.log(campuriText.userID)
+        AccesBD.getInstanta().delete({
+            tabel: "utilizatori", conditii: [`id=${campuriText.userID}`, `parola='${parolaCriptata}'`]
+        }, function (err, rezQuery) {
+            console.log(err);
+            res.redirect("/logout");
+        });
+    });
+})
+
 app.get("/logout", function (req, res) {
     req.session.destroy();
     res.locals.utilizator = null;
     res.render("pagini/logout");
 });
 
+app.post("/administrare", function (req, res) {
+    var poza;
+    var formular = new formidable.IncomingForm()
+    formular.parse(req, function (err, campuriText, campuriFisier) {//4
+        console.log("Anunt:", campuriText);
+
+        console.log(campuriFisier);
+        var eroare = "";
+
+        var newCar = new Car();
+        try {
+            newCar.poza = poza;
+            newCar.caroserie = campuriText.caroserie;
+            newCar.marca = campuriText.marca;
+            newCar.model = campuriText.model;
+            newCar.generatie= campuriText.generatie;
+            newCar.an = campuriText.an;
+            newCar.km = campuriText.km;
+            newCar.combustibil = campuriText.combustibil;
+            newCar.capacitate = campuriText.capacitate;
+            newCar.cp = campuriText.cp;
+            newCar.transmisie = campuriText.transmisie;
+            newCar.dotari = campuriText.dotari;
+            newCar.descriere = campuriText.descriere;
+            newCar.pret = campuriText.pret;
+            newCar.negociabil = campuriText.negociabil === 'on';
+            newCar.locatie = campuriText.locatie;
+            console.log(newCar);
+            newCar.saveCar();
+
+            if (!eroare) {
+                res.render("pagini/administrare", {raspuns: "Adaugare cu succes!"})
+
+            } else res.render("pagini/administrare", {err: "Eroare: " + eroare});
+
+        } catch (e) {
+            console.log(e);
+            eroare += "Eroare site; reveniti mai tarziu";
+            console.log(eroare);
+            res.render("pagini/administrare", {err: "Eroare: " + eroare})
+        }
+
+    });
+    // formular.on("field", function (nume, val) {  // 1
+    //
+    //     console.log(`--- ${nume}=${val}`);
+    //
+    //     if (nume == "model") username = val;
+    // })
+    formular.on("fileBegin", function (nume, fisier) { //2
+        console.log("fileBegin");
+
+        console.log(nume, fisier);
+        //TO DO in folderul poze_uploadate facem folder cu numele utilizatorului
+        let folderProd = path.join(__dirname, "resurse/imagini/produse");
+        //folderUser=__dirname+"/poze_uploadate/"+username
+        console.log(folderProd);
+        if (!fs.existsSync(folderProd)) fs.mkdirSync(folderProd);
+        fisier.filepath = path.join(folderProd, fisier.originalFilename)
+        poza = fisier.originalFilename
+        //fisier.filepath=folderUser+"/"+fisier.originalFilename
+
+    })
+    formular.on("file", function (nume, fisier) {//3
+        console.log("file");
+        console.log(nume, fisier);
+    });
+});
+
 
 app.get("/*", function (req, res) {
-    try {
-        res.render("pagini" + req.url, function (err, rezRandare) {
-            if (err) {
-                console.log(err);
-                if (err.message.startsWith("Failed to lookup view"))
-                    // afisareEroare(res, {_identificator:404, _titlu:"ceva"});
-                    afisareEroare(res, 404); else afisareEroare(res);
-            } else {
-                console.log(rezRandare);
-                res.send(rezRandare);
-            }
-        });
-    } catch (err) {
-        if (err.message.startsWith("Cannot find module"))
-            // afisareEroare(res, {_identificator:404, _titlu:"ceva"});
-            afisareEroare(res, 404); else afisareEroare(res);
+    console.log(req.url);
+    if(!req.url.startsWith("/socket.io")){
+        try {
+            res.render("pagini" + req.url, function (err, rezRandare) {
+                if (err) {
+                    console.log(err);
+                    if (err.message.startsWith("Failed to lookup view"))
+                        // afisareEroare(res, {_identificator:404, _titlu:"ceva"});
+                        afisareEroare(res, 404); else afisareEroare(res);
+                } else {
+                    console.log(rezRandare);
+                    res.send(rezRandare);
+                }
+            });
+        } catch (err) {
+            if (err.message.startsWith("Cannot find module"))
+                // afisareEroare(res, {_identificator:404, _titlu:"ceva"});
+                afisareEroare(res, 404); else afisareEroare(res);
+        }
     }
+
 
 });
 
@@ -686,5 +833,10 @@ function afisareEroare(res, _identificator, _titlu = "titlu default", _text, _im
 
 }
 
-app.listen(8080);
-console.log("serverul a pornit");
+s_port=process.env.PORT || 8080
+server.listen(s_port)
+
+console.log('Serverul a pornit pe portul '+ s_port);
+
+//app.listen(8080);
+// console.log("serverul a pornit");

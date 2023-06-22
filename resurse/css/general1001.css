@@ -1,5 +1,6 @@
 body{
     --spacing: 50px;
+    --gridgap: 20px;
 }
 
 h1{
@@ -29,7 +30,7 @@ p{
     "z-calendar z-calendar z-tabel z-tabel"
     "z-anunt z-anunt z-tabel z-tabel"
     "z-diverse z-diverse z-diverse z-diverse";
-    gap: 20px;
+    gap: var(--gridgap);
 }
 
 #banner{

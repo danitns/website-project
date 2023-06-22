@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html  lang="ro">
+<head>
+    <meta name="description" content="AuctionRider - Chat.">
+    <meta name="keywords" content="masini, AuctionRider, chat">
+    <title>AuctionRider - Chat</title>
+    <script type="text/javascript" src="/node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script type="text/javascript" src=/resurse/js/chat.js></script>
+    <%- include("../fragmente/head") %>
+    <link rel="stylesheet" href="/resurse/css/chat.css" type="text/css" />
+
+</head>
+
+<%- include("../fragmente/header") %>
+
+<body>
+<div id="chat">
+    <div id="mesaje_chat">
+    </div>
+    <label>
+        Nume: <input class="form-check" type="text" id="nume" name="nume" value="ionel">
+    </label><br/>
+    <label>
+        Mesaj: <textarea class="form-check" id="mesaj" name="mesaj" value="bau! "></textarea>
+    </label><br/>
+    <label>
+        Culoare: <select class="form-select" id="culoare" name="culoare">
+            <option value="red">red</option>
+            <option value="green">green</option>
+            <option value="blue">blue</option>
+        </select>
+    </label><br/>
+    <button class="btn btn-outline-primary" onclick="trimite()">ok</button>
+</div>
+<div contenteditable style="border:1px solid black;">Ceva</div>
+
+</body>
+
+<%- include("../fragmente/footer") %>
+</html>

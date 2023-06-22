@@ -36,3 +36,8 @@ h3 {
     text-decoration: none;
     color: var(--primary-font-color);
 }
+
+#mesaj-filtre{
+    display: none;
+    text-align: center;
+}

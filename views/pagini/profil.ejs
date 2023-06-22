@@ -15,10 +15,21 @@
 				document.getElementById("inp-nume").value="<%= locals.utilizator.nume %>";
 				document.getElementById("inp-prenume").value="<%= locals.utilizator.prenume %>";
 				document.getElementById("inp-email").value="<%= locals.utilizator.email %>";
+				var jsDate = new Date("<%= locals.utilizator.data_nasterii %>");
+
+				var month = (jsDate.getMonth() + 1).toString().padStart(2, '0');
+				var day = jsDate.getDate().toString().padStart(2, '0');
+				var year = jsDate.getFullYear();
+
+				document.getElementById("inp-data-nasterii").value= `${year}-${month}-${day}`;
 				document.getElementById("p-reintrod").remove();
-				var optiuni=document.getElementById("sel-culoare").options
+				var optiuni=document.getElementById("sel-culoare").options;
 				for (let opt of optiuni)
 					if (opt.value=="<%= locals.utilizator.culoare_chat %>")
+						opt.selected=true;
+				var optiuniOcupatie=document.getElementById("sel-ocupatie").options;
+				for (let opt of optiuniOcupatie)
+					if(opt.value=="<%= locals.utilizator.ocupatie%>")
 						opt.selected=true;
 			});
 		</script>
@@ -37,6 +48,15 @@
 				<img src="/<%- locals.utilizator.poza%>" alt="nu ati incarcat poza de profil" />
 			</section>
 			<%- include("../fragmente/formular",{action:"/profil"}) %>
+
+				<form id="form_sterge"  method="post" class="date"  action="/sterge"  enctype="multipart/form-data" >
+					<label>
+						Introduceti parola pentru a sterge contul: <input class="form-control" id="parl" type="password"  name="parola" value="">
+					</label>
+					<input id="sterge_contul" class="btn btn-outline-primary" name="sterge_contul" type="submit" value="Sterge contul">
+					<input type="hidden" name="userID" id="userID" value="<%=locals.utilizator.id%>">
+				</form>
+
 		</main>
 		<% } else { %>
 			<p>Nu sunteti logat</p>

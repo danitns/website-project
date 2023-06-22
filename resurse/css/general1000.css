@@ -1,5 +1,6 @@
 body{
     --spacing: 40px;
+    --gridgap: 10px;
 }
 
 h1{
@@ -34,4 +35,5 @@ p{
     "z-tabel z-tabel"
     "z-anunt z-anunt"
     "z-diverse z-diverse";
+    gap: var(--gridgap);
 }

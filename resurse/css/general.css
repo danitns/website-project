@@ -11,14 +11,13 @@ h1, h2, h3, h4, h5{
 
 h1{
     font-weight: bold;
-    margin-top: 0;
 }
 
 h3{
     color: var(--primary-color);
 }
 
-a:not(.nav-bar-link, #carouselExampleControls){
+.link-bg{
     color: var(--primary-color);
     background-image: radial-gradient(var(--primary-contrast-color)0%, var(--primary-contrast-color)40%, transparent 80%, transparent 100%);
     background-size: 0;
@@ -26,7 +25,7 @@ a:not(.nav-bar-link, #carouselExampleControls){
     transition: background-size 200ms linear;
 }
 
-a:hover{
+.link-bg:hover{
     background-size: 100%;
 }
 
@@ -70,6 +69,21 @@ body.dark{
     --secondary-font-color: rgb(176, 176, 176);
 }
 
+body.purple{
+    --primary-contrast-color:rgb(128, 123, 54);
+    --secondary-contrast-color:rgb(51, 48, 11);
+
+    --secondary-color:white;
+    --primary-color:rgb(77, 54, 128);
+    --dark-secondary-color: black;
+
+    --primary-background-color: white;
+    --primary-font-color: black;
+
+    --secondary-background-color: rgb(27, 16, 51);
+    --secondary-font-color: rgb(137, 106, 204);
+}
+
 header{
     /*background-color: var(--secondary-color);*/
     color: var(--primary-color);
@@ -108,12 +122,25 @@ main section p{
     text-indent: 20px;
 }
 
+blockquote{
+    margin: 1vw;
+    text-justify: auto;
+    text-indent: 20px;
+}
+
 #responsive-layout > * {
     border: 0.18em solid var(--secondary-contrast-color);
 }
 
 #diverse > section{
     border: 0.18em solid var(--primary-contrast-color);
+}
+
+aside{
+    margin: 15px;
+    padding: 10px;
+    background-color: var(--primary-contrast-color);
+    font-style: italic;
 }
 
 
